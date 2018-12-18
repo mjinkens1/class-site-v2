@@ -1,7 +1,6 @@
 @import '../../config/styles/index.scss';
 
 .calendar {
-    // width: calc(50vw - #{12 * $base-unit});
     width: calc(100% - #{12 * $base-unit});
     margin: 6 * $base-unit;
     padding-bottom: 12px;

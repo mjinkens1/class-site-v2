@@ -3,6 +3,7 @@ import { DownButton } from '../common/downButton/DownButton'
 import { Calendar } from '../calendar/Calendar'
 import { HomeCard } from './HomeCard'
 import { Wod } from './Wod'
+import { RSSVideo } from '../rssVideo/RSSVideo'
 import AnnouncementIcon from '@material-ui/icons/Announcement'
 import PeopleIcon from '@material-ui/icons/People'
 import ListIcon from '@material-ui/icons/ListAlt'
@@ -36,7 +37,6 @@ export class Home extends PureComponent {
         })
 
     componentDidMount() {
-        this.props.getRSSData()
         this.setState({ innerHeight: window.innerHeight })
         window.addEventListener('scroll', this._onScroll)
         window.addEventListener('resize', this._onResize)
@@ -48,7 +48,7 @@ export class Home extends PureComponent {
     }
 
     render() {
-        const { wodData } = this.props
+        const { wodData, getRSSVideo, rssVideo } = this.props
 
         return (
             <div id="home" style={{ overflowX: 'hidden' }}>
@@ -72,7 +72,7 @@ export class Home extends PureComponent {
                     <div className="lower-container">
                         <div className="column">
                             <Calendar />
-                            <div className="video">test</div>
+                            <RSSVideo getRSSVideo={ getRSSVideo } rssVideo={ rssVideo } />
                         </div>
                         <div className="column">
                             <HomeCard

@@ -1,15 +1,15 @@
 import { connect } from 'react-redux'
 import { toJS } from '../toJS'
 import { Home } from '../../components/home/Home'
-import { getRSSData } from './actions'
+import { getRSSVideo } from './actions'
 
 const mapStateToProps = ({ home }) => ({
     gettingRSSData: home.get('gettingRSSData'),
-    rssData: home.get('rssData'),
+    rssVideo: home.get('rssVideo'),
 })
 
 const mapDispatchToProps = {
-    getRSSData,
+    getRSSVideo,
 }
 
 export default connect(

@@ -2,7 +2,7 @@ import { Map, fromJS } from 'immutable'
 import { actions } from './actions'
 
 const intialState = Map({
-    gettingRSSData: false,
+    gettingRSSVideo: false,
     rssData: null,
 })
 
@@ -10,19 +10,19 @@ export default (state = intialState, action) => {
     const { type, payload } = action
 
     switch (type) {
-        case action.GET_RSS_DATA: {
-            return state.set('gettingRSSData', true)
+        case action.GET_RSS_VIDEO: {
+            return state.set('gettingRSSVideo', true)
         }
 
-        case actions.GET_RSS_DATA_SUCCESS: {
+        case actions.GET_RSS_VIDEO_SUCCESS: {
             return state.merge({
-                rssData: fromJS(payload),
-                gettingRSSData: false,
+                rssVideo: fromJS(payload),
+                gettingRSSVideo: false,
             })
         }
 
-        case action.GET_RSS_DATA_FAILED: {
-            return state.set('gettingRSSData', false)
+        case action.GET_RSS_VIDEO_FAILED: {
+            return state.set('gettingRSSVideo', false)
         }
 
         default:

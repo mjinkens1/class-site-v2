@@ -1,0 +1,10 @@
+@import '../../config/styles/index.scss';
+
+.video {
+    display: flex;
+    flex-grow: 1;
+    margin: 6 * $base-unit;
+    margin-top: 0;
+    border-radius: $base-unit;
+    overflow: hidden;
+}

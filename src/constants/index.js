@@ -1,1 +1,1 @@
-export const rssURL = 'http://rss.cnn.com/services/podcasting/cnn10/rss.xml'
+export const rssURL = 'https://us-central1-classsite-9148d.cloudfunctions.net/getRSS'

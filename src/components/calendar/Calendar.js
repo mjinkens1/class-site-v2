@@ -10,17 +10,14 @@ export class Calendar extends PureComponent {
 
     render() {
         return (
-            <div className="calendar-container">
-                <div />
-                <CalendarComponent
-                    className="calendar"
-                    minDetail="month"
-                    showFixedNumberOfWeeks={true}
-                    // navigationLabel={() => null}
-                    tileContent={<CalendarTile />}
-                    onClickDay={this._onClickDay}
-                />
-            </div>
+            <CalendarComponent
+                className="calendar"
+                minDetail="month"
+                showFixedNumberOfWeeks={true}
+                // navigationLabel={() => null}
+                tileContent={<CalendarTile />}
+                onClickDay={this._onClickDay}
+            />
         )
     }
 }

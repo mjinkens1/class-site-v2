@@ -1,12 +1,9 @@
 @import '../../config/styles/index.scss';
 
-.calendar-container {
-    display: flex;
-    margin: 6 * $base-unit;
-}
-
 .calendar {
-    width: calc(50vw - #{12 * $base-unit});
+    // width: calc(50vw - #{12 * $base-unit});
+    width: calc(100% - #{12 * $base-unit});
+    margin: 6 * $base-unit;
     padding-bottom: 12px;
     border: none;
     border-radius: $base-unit;
@@ -18,10 +15,10 @@
     flex-direction: column;
     flex-grow: 1;
     justify-content: flex-end;
-    width: 5vw;
-    height: 4vw;
-    margin-left: 10px;
+    min-height: 12 * $base-unit;
+    max-height: 150 * $base-unit;
     background: $bg-primary-light;
+    border-radius: $base-unit;
     cursor: pointer;
 }
 

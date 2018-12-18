@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { toJS } from '../toJS'
-import { Header } from '../../components/common/header/Header'
+import { Header } from '../../components/header/Header'
 
 const mapStateToProps = () => ({})
 

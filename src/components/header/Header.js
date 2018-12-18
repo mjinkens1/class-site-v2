@@ -6,23 +6,20 @@ import './styles.scss'
 
 export class Header extends PureComponent {
     render() {
+        const { toggleDrawer } = this.props;
+
         return (
             <div className="header">
                 <IconButton
-                    style={{
-                        color: 'white',
-                        backgroundColor: 'rgba(0,0,0,0.2)',
-                    }}
+                    style={ materialUIStyles.headerButton }
                     color="inherit"
                     aria-label="Menu"
+                    onClick={ toggleDrawer }
                 >
                     <MenuIcon />
                 </IconButton>
                 <IconButton
-                    style={{
-                        color: 'white',
-                        backgroundColor: 'rgba(0,0,0,0.2)',
-                    }}
+                    style={ materialUIStyles.headerButton }
                     // aria-owns={open ? 'menu-appbar' : undefined}
                     aria-haspopup="true"
                     onClick={this.handleMenu}
@@ -32,5 +29,12 @@ export class Header extends PureComponent {
                 </IconButton>
             </div>
         )
+    }
+}
+
+const materialUIStyles = {
+    headerButton: {
+        color: 'white',
+        backgroundColor: 'rgba(0,0,0,0.2)',
     }
 }

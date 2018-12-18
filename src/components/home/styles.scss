@@ -1,0 +1,146 @@
+@import '../../config/styles/index.scss';
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slidein {
+    from {
+        transform: translateY(-30px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.landing {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-shadow: 1px 1px 2px black;
+    animation: fadein 2s, slidein 1s;
+}
+
+.header-1 {
+    margin-bottom: -6 * $base-unit;
+    color: $text-primary-light;
+    font-family: $display-font;
+}
+
+.header-2 {
+    color: $text-secondary-dark;
+    font-family: $display-font;
+    font-size: 40px;
+}
+
+.main-img-wrapper {
+    width: 65vw;
+    height: 80vh;
+    min-height: 300px;
+    clip-path: polygon(20% 0, 100% 0%, 100% 100%, 0% 100%);
+    background: $bg-primary-dark;
+}
+
+.main-img-bg-color {
+    position: absolute;
+    right: 0;
+    width: calc(65vw - #{$base-unit});
+    height: 80vh;
+    min-height: 300px;
+    clip-path: polygon(20% 0, 100% 0%, 100% 100%, 0% 100%);
+    background: $bg-secondary-dark;
+}
+
+.main-img {
+    position: absolute;
+    right: 0;
+    width: calc(65vw - #{$base-unit});
+    height: 80vh;
+    min-height: 300px;
+    background-image: url('../../assets/images/main-bg.jpg');
+    background-attachment: fixed;
+    background-position: 35vw -25vh;
+    background-size: cover;
+    clip-path: polygon(20% 0, 100% 0%, 100% 100%, 0% 100%);
+    animation: fadein 2s;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: space-around;
+    background: $bg-primary-light;
+}
+
+.down-button {
+    display: flex;
+    justify-content: center;
+    margin-top: -6 * $base-unit;
+}
+
+.lower-container {
+    display: flex;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.card:nth-child(n + 2) {
+    margin-top: 0;
+}
+
+.card-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: calc(50vw - #{12 * $base-unit});
+    height: 100%;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 150px;
+    padding: 4 * $base-unit;
+    background: $bg-emphasis;
+}
+
+.card-title {
+    color: $text-secondary-dark;
+    font-size: 5 * $base-unit;
+    font-family: $primary-font;
+}
+
+.icon {
+    color: $text-secondary-dark;
+    transform: scale(2.4);
+}

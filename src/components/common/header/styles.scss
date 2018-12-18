@@ -1,0 +1,13 @@
+@import '../../../config/styles/index.scss';
+
+.header {
+    position: fixed;
+    width: calc(100vw - #{10 * $base-unit});
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    height: 12 * $base-unit;
+    padding: $base-unit 3 * $base-unit;
+}

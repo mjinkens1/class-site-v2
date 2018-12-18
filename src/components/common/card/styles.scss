@@ -1,0 +1,9 @@
+@import '../../../config/styles/index.scss';
+
+.card-base {
+    margin: 6 * $base-unit;
+    background: $bg-primary-light;
+    border-radius: $base-unit;
+    box-shadow: $shadow-primary;
+    overflow: hidden;
+}

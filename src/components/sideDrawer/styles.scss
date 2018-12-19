@@ -1,0 +1,30 @@
+@import '../../config/styles/index.scss';
+
+.side-drawer-top {
+    background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
+}
+
+.side-list {
+    width: 400;
+}
+
+.drawer-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 250px;
+    background-image: linear-gradient($bg-secondary-light, $bg-secondary-dark);
+    background-size: contain;
+}
+
+.header-1 {
+    margin: 0;
+    letter-spacing: 4px;
+}
+
+.subtitle {
+    font-family: $display-font;
+    color: $text-secondary-dark;
+}

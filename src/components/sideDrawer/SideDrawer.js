@@ -69,16 +69,6 @@ const sideList = (
                 ))
             }
         </List>
-        {/* <Divider /> */}
-        {/* <List>
-        {['All mail', 'Trash', 'Spam'].map((text) => (
-            <ListItem button key={text}>
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary={text} />
-            </ListItem>
-        ))}
-        </List> */}
     </div>
 );
 

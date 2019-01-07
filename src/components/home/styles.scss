@@ -22,6 +22,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding-left: 3 * $base-unit;
     background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
 }
 
@@ -56,18 +57,15 @@
 }
 
 .main-img-bg-color {
-    position: absolute;
-    right: 0;
     width: calc(65vw - #{$base-unit});
     height: 80vh;
+    margin-left: 4px;
     min-height: 300px;
     clip-path: polygon(20% 0, 100% 0%, 100% 100%, 0% 100%);
     background: $bg-secondary-dark;
 }
 
 .main-img {
-    position: absolute;
-    right: 0;
     width: calc(65vw - #{$base-unit});
     height: 80vh;
     min-height: 300px;
@@ -144,4 +142,15 @@
 .icon {
     color: $text-secondary-dark;
     transform: scale(2.4);
+}
+
+@media only screen and (max-width: 768px) {
+    .landing {
+        justify-content: center;
+        height: 30vh;
+    }
+
+    .main-img-wrapper {
+        display: none;
+    }
 }

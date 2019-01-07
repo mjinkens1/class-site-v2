@@ -68,32 +68,6 @@ const sideListItems = [
     ],
 ]
 
-<<<<<<< HEAD
-const sideList = (
-    <div style={{ width: 350 }}>
-        <List>
-            <ListItem button>
-                <ListItemIcon>
-                    { null }
-                </ListItemIcon>
-            </ListItem>
-            { 
-                sideListItems.map(item => (
-                    <ListItem button key={ item.text }>
-                        <ListItemIcon>
-                            { item.icon }
-                        </ListItemIcon>
-                        <ListItemText primary={ item.text } />
-                    </ListItem>
-                ))
-            }
-        </List>
-    </div>
-);
-
-
-=======
->>>>>>> 68d2fedf1d5265c2d68a5440c105279ddf806474
 export class SideDrawer extends PureComponent {
     render() {
         const { toggleDrawer, open } = this.props

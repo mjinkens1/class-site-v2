@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 
 const config = {
-    apiKey: 'AIzaSyBB_rPut6fHT-gYeSSU3BUJvCRwwsd9qgw',
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: 'classsite-9148d.firebaseapp.com',
     databaseURL: 'https://classsite-9148d.firebaseio.com',
     projectId: 'classsite-9148d',

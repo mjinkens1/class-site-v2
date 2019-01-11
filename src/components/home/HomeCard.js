@@ -1,9 +1,11 @@
 import React from 'react'
 import { Card } from '../common/card/Card'
+import { EditTools } from '../editTools/EditTools'
 import './styles.scss'
 
 export const HomeCard = ({ icon, title, dataList }) => (
     <Card className="card">
+        <EditTools/>
         <div className="card-data">
             <ul>
                 {React.Children.map(dataList, listItem => {

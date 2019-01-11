@@ -1,0 +1,10 @@
+@import '../../config/styles/index.scss';
+
+.edit-tools-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    margin: $base-unit;
+    // background-color:  red;
+}

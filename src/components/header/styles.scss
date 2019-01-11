@@ -1,5 +1,16 @@
 @import '../../config/styles/index.scss';
 
+@keyframes header-fadein {
+    from {
+        // transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        // transform: scale(1);
+        opacity: 1;
+    }
+}
+
 .header {
     position: fixed;
     width: calc(100vw - #{10 * $base-unit});
@@ -8,6 +19,43 @@
     flex: 1;
     justify-content: space-between;
     align-items: center;
-    height: 12 * $base-unit;
+    height: $header-height;
     padding: $base-unit 3 * $base-unit;
+}
+
+.header-red {
+    @extend .header;
+    position: relative;
+    width: calc(100vw - #{6 * $base-unit});
+}
+
+.header-red::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $bg-primary-dark;
+    animation: header-fadein 1s;
+}
+
+.header-title {
+    z-index: 10;
+    color: $text-primary-light;
+    font-family: $display-font;
+}
+
+.login-menu-container {
+    width: 60 * $base-unit;
+    margin: 5 * $base-unit;
+}
+
+.login-menu-text-field {
+    width: 100%;
+}
+
+.login-menu-current-user {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

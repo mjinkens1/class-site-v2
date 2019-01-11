@@ -11,9 +11,15 @@ $bg-emphasis: hsl(0, 0%, 93%);
 $text-primary-dark: #373737;
 $text-primary-light: white;
 
+$bg-error-1: rgb(223, 167, 102);
+$bg-error-2: rgb(188, 121, 67);
+$bg-error-3: rgb(194, 152, 101);
+
 $text-secondary-dark: rgb(225, 59, 30);
 
 $shadow-primary: 0 2px 5px gray;
 
 $display-font: 'Monoton', cursive;
 $primary-font: 'Roboto', sans-serif;
+
+$header-height: 12 * $base-unit;

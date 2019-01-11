@@ -1,35 +1,82 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { Provider } from 'react-redux'
 import { store } from './config/redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Header from './containers/header/Header'
-import Home from './containers/home/Home'
 import { SideDrawer } from './components/sideDrawer/SideDrawer'
+import Home from './containers/home/Home'
+import { Syllabus } from './components/syllabus/Syllabus'
+import { CourseSection } from './components/courseSection/CourseSection'
+import { PageNotFound } from './components/pageNotFound/PageNotFound'
 import './index.scss'
 
-export class App extends PureComponent {
-
+export default class App extends PureComponent {
     state = {
-        drawerOpen: false
+        drawerOpen: false,
     }
 
     _toggleDrawer = () => this.setState({ drawerOpen: !this.state.drawerOpen })
 
     render() {
-        const { drawerOpen } = this.state;
+        const { drawerOpen } = this.state
 
-        return( 
-            <Provider store={ store }>
-                <Header toggleDrawer={ this._toggleDrawer }/>
-                <SideDrawer open={ drawerOpen } toggleDrawer={ this._toggleDrawer }/>
-                <Router>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                </Router>
+        return (
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Fragment>
+                        <Header toggleDrawer={this._toggleDrawer} />
+                        <SideDrawer
+                            open={drawerOpen}
+                            toggleDrawer={this._toggleDrawer}
+                        />
+                        <Switch>
+                            <Route
+                                exact
+                                path="/syllabus"
+                                component={Syllabus}
+                            />
+                            <Route exact path="/home" component={Home} />
+                            <Route
+                                exact
+                                path="/technology & environment"
+                                component={CourseSection}
+                            />
+                            <Route
+                                exact
+                                path="/organization of societies"
+                                component={CourseSection}
+                            />
+                            <Route
+                                exact
+                                path="/regional interactions"
+                                component={CourseSection}
+                            />
+                            <Route
+                                exact
+                                path="/global interactions"
+                                component={CourseSection}
+                            />
+                            <Route
+                                exact
+                                path="/industrialization & integration"
+                                component={CourseSection}
+                            />
+                            <Route
+                                exact
+                                path="/accelerating global change"
+                                component={CourseSection}
+                            />
+                            <Route exact path="/404" component={PageNotFound} />
+                            <Route exact path="/">
+                                <Redirect to="/home" />
+                            </Route>
+                            <Route path="*">
+                                <Redirect to="/404" />
+                            </Route>
+                        </Switch>
+                    </Fragment>
+                </BrowserRouter>
             </Provider>
         )
     }
 }
-
-export default App

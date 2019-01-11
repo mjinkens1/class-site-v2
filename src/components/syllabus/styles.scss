@@ -1,0 +1,7 @@
+@import '../../config/styles/index.scss';
+
+.container {
+    width: 100%;
+    height: calc(100vh - #{15 * $base-unit});
+    background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
+}

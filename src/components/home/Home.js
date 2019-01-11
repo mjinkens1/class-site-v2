@@ -32,7 +32,7 @@ export class Home extends PureComponent {
     _onDownButtonClick = () =>
         window.scrollTo({
             left: 0,
-            top: this.state.innerHeight * 0.8,
+            top: this.state.innerHeight * 0.7,
             behavior: 'smooth',
         })
 
@@ -72,7 +72,10 @@ export class Home extends PureComponent {
                     <div className="lower-container">
                         <div className="column">
                             <Calendar />
-                            <RSSVideo getRSSVideo={ getRSSVideo } rssVideo={ rssVideo } />
+                            <RSSVideo
+                                getRSSVideo={getRSSVideo}
+                                rssVideo={rssVideo}
+                            />
                         </div>
                         <div className="column">
                             <HomeCard

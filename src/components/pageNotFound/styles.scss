@@ -1,0 +1,102 @@
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+@import '../../config/styles/index.scss';
+
+.page-not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/images/desktop.jpg');
+    overflow: hidden;
+}
+
+.page-not-found-title {
+    position: absolute;
+    z-index: 10;
+    color: $text-secondary-dark;
+    font-family: $display-font;
+    font-size: 20 * $base-unit;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2 * $base-unit;
+}
+
+.page-not-found-paper {
+    width: 71vh;
+    min-width: 400px;
+    min-height: 284px;
+    height: 100vh;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: $shadow-primary;
+    transform: rotateZ(-30deg);
+}
+.page-not-found-paper::before {
+    content: '';
+    position: absolute;
+    left: 45px;
+    height: 100%;
+    width: 2px;
+    background: rgba(255, 0, 0, 0.4);
+}
+
+.page-not-found-lines {
+    margin-top: 40px;
+    height: calc(100% - 40px);
+    width: 100%;
+    background-image: repeating-linear-gradient(
+        white 0px,
+        white 24px,
+        steelblue 25px
+    );
+}
+.page-not-found-text {
+    position: absolute;
+    top: 65px;
+    left: 55px;
+    bottom: 10px;
+    right: 10px;
+    line-height: 25px;
+    font-family: 'Indie Flower';
+    overflow: hidden;
+    outline: none;
+}
+
+.page-not-found-grade {
+    position: absolute;
+    top: 2%;
+    right: 20%;
+    padding: 5 * $base-unit;
+    color: red;
+    text-align: center;
+    font-size: 10 * $base-unit;
+    font-weight: 500;
+    border: 2px solid red;
+    border-radius: 50%;
+    transform: rotateZ(-3deg);
+}
+
+.page-not-found-blur {
+    padding: $base-unit;
+    filter: blur(2px);
+}
+
+.page-not-found-holes {
+    position: absolute;
+    left: 10px;
+    height: 25px;
+    width: 25px;
+    background-image: url('../../assets/images/desktop.jpg');
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 2px 0px #888;
+}
+.page-not-found-hole-top {
+    top: 10%;
+}
+.page-not-found-hole-middle {
+    top: 50%;
+}
+.page-not-found-hole-bottom {
+    bottom: 10%;
+}

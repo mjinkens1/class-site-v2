@@ -1,0 +1,19 @@
+@import '../../config/styles/index.scss';
+
+.course-section-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - #{10px + $header-height});
+    background: $bg-primary-light;
+}
+
+.course-section-card {
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 360px;
+    flex-wrap: wrap;
+    margin: 0 20px;
+    height: calc(100% - #{$header-height});
+}

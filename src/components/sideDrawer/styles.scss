@@ -1,5 +1,10 @@
 @import '../../config/styles/index.scss';
 
+a {
+    color: black;
+    text-decoration: none;
+}
+
 .side-drawer-top {
     background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
 }
@@ -27,4 +32,8 @@
 .subtitle {
     font-family: $display-font;
     color: $text-secondary-dark;
+}
+
+.side-drawer-anchor {
+    display: flex;
 }

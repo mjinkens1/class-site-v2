@@ -50,7 +50,7 @@
 
 .main-img-wrapper {
     width: 65vw;
-    height: 80vh;
+    height: 70vh;
     min-height: 300px;
     clip-path: polygon(20% 0, 100% 0%, 100% 100%, 0% 100%);
     background: $bg-primary-dark;
@@ -58,7 +58,7 @@
 
 .main-img-bg-color {
     width: calc(65vw - #{$base-unit});
-    height: 80vh;
+    height: 70vh;
     margin-left: 4px;
     min-height: 300px;
     clip-path: polygon(20% 0, 100% 0%, 100% 100%, 0% 100%);
@@ -67,7 +67,7 @@
 
 .main-img {
     width: calc(65vw - #{$base-unit});
-    height: 80vh;
+    height: 70vh;
     min-height: 300px;
     background-image: url('../../assets/images/main-bg.jpg');
     background-attachment: fixed;
@@ -141,7 +141,7 @@
 
 .icon {
     color: $text-secondary-dark;
-    transform: scale(2.4);
+    transform: scale(2);
 }
 
 @media only screen and (max-width: 768px) {

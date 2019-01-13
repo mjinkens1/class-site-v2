@@ -1,13 +1,16 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import createSagaMiddleware from 'redux-saga'
-import home from '../../containers/home/reducers'
-import header from '../../containers/header/reducers'
+import authentication from '../../modules/authentication/reducers'
+import database from '../../modules/database/reducers'
+import rssVideo from '../../modules/rssVideo/reducers'
+
 import rootSaga from '../sagas'
 
 const rootReducer = combineReducers({
-    home,
-    header,
+    authentication,
+    database,
+    rssVideo,
 })
 
 const sagaMiddleware = createSagaMiddleware()

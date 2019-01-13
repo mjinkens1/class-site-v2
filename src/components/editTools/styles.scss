@@ -1,10 +1,42 @@
 @import '../../config/styles/index.scss';
 
-.edit-tools-container {
+@keyframes editButtonFadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+@keyframes editToolsSlide {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(48px);
+    }
+}
+
+.edit-tools__container {
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    width: 100%;
+    width: calc(100% - $base-unit);
+    min-height: 0;
     margin: $base-unit;
-    // background-color:  red;
+}
+
+.edit-tools__edit-button--fade-out {
+    opacity: 0;
+    pointer-events: none;
+    animation: editButtonFadeout 0.3s;
+}
+
+.edit-tools__edit-button--slide {
+    transform: translateX(48px);
+    animation: editToolsSlide 0.3s;
 }

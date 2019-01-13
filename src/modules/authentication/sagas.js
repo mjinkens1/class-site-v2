@@ -17,7 +17,7 @@ function* login(action) {
             email,
             password
         )
-        console.log(response)
+
         yield put(loginSuccess(response.user))
     } catch (error) {
         yield put(loginFailed(error.code))
@@ -42,6 +42,6 @@ function* logoutWatcher() {
     yield takeLatest(actions.LOGOUT, logout)
 }
 
-export default function* header() {
+export default function* authentication() {
     yield all([loginWatcher(), logoutWatcher()])
 }

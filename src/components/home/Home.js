@@ -4,6 +4,8 @@ import { Calendar } from '../calendar/Calendar'
 import { HomeCard } from './HomeCard'
 import { Wod } from './Wod'
 import { RSSVideo } from '../rssVideo/RSSVideo'
+import { IconButton, Snackbar } from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
 import AnnouncementIcon from '@material-ui/icons/Announcement'
 import PeopleIcon from '@material-ui/icons/People'
 import ListIcon from '@material-ui/icons/ListAlt'
@@ -11,6 +13,10 @@ import BookIcon from '@material-ui/icons/Book'
 import './styles.scss'
 
 export class Home extends PureComponent {
+    state = {
+        open: false,
+    }
+
     _onScroll = () => {
         const scrollTop =
                 window.scrollY ||
@@ -36,10 +42,20 @@ export class Home extends PureComponent {
             behavior: 'smooth',
         })
 
+    _open = () => this.setState({ open: true })
+
+    _handleClose = () => this.setState({ open: false })
+
     componentDidMount() {
         this.setState({ innerHeight: window.innerHeight })
         window.addEventListener('scroll', this._onScroll)
         window.addEventListener('resize', this._onResize)
+    }
+
+    componentDidUpdate(prevProps) {
+        const { updatingDb, updateDbFailed } = this.props
+
+        if (prevProps.updatingDb && !updatingDb && !updateDbFailed) this._open()
     }
 
     componentWillUnmount() {
@@ -48,10 +64,44 @@ export class Home extends PureComponent {
     }
 
     render() {
-        const { wodData, getRSSVideo, rssVideo } = this.props
+        const {
+                wodData,
+                getRSSVideo,
+                rssVideo,
+                user,
+                getDocsFromDb,
+                updateDb,
+                announcementsData,
+                parentsData,
+                otherData,
+            } = this.props,
+            { open } = this.state
 
         return (
             <div id="home" style={{ overflowX: 'hidden' }}>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={this._handleClose}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">Changes Saved!</span>}
+                    action={[
+                        <IconButton
+                            key="close"
+                            aria-label="Close"
+                            color="inherit"
+                            onClick={this._handleClose}
+                        >
+                            <CloseIcon />
+                        </IconButton>,
+                    ]}
+                />
                 <div className="landing">
                     <div className="title-wrapper">
                         <div className="title">
@@ -79,16 +129,28 @@ export class Home extends PureComponent {
                         </div>
                         <div className="column">
                             <HomeCard
+                                user={user}
                                 title="Announcements"
                                 icon={<AnnouncementIcon className="icon" />}
+                                data={announcementsData}
+                                getDocsFromDb={getDocsFromDb}
+                                updateDb={updateDb}
                             />
                             <HomeCard
+                                user={user}
                                 title="Parents"
                                 icon={<PeopleIcon className="icon" />}
+                                data={parentsData}
+                                getDocsFromDb={getDocsFromDb}
+                                updateDb={updateDb}
                             />
                             <HomeCard
+                                user={user}
                                 title="Other Stuff"
                                 icon={<ListIcon className="icon" />}
+                                data={otherData}
+                                getDocsFromDb={getDocsFromDb}
+                                updateDb={updateDb}
                             />
                             <Wod
                                 title="Word of the Day"

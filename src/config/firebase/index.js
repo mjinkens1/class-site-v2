@@ -24,5 +24,3 @@ export const storage = firebase.storage()
 const settings = { timestampsInSnapshots: true } //must be set to prevent errors from deprecation of the way firebase currently sets timestamps
 
 db.settings(settings)
-
-// create and export variables for the various DB documents we want to access

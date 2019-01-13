@@ -1,0 +1,32 @@
+@import '../../config/styles/index.scss';
+
+.card-list-item {
+    font-family: $primary-font;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-self: stretch;
+    min-height: 10 * $base-unit;
+    margin: 2 * $base-unit;
+    padding: 2 * $base-unit;
+    background-color: $bg-emphasis;
+    border-radius: $base-unit;
+    overflow: auto;
+}
+
+.card-list-item__edit {
+    display: flex;
+    justify-content: flex-end;
+    align-self: stretch;
+}
+
+.card-list-item p {
+    margin: $base-unit;
+}
+
+.card-list-item a {
+    color: #0000ff;
+    text-decoration: underline;
+}

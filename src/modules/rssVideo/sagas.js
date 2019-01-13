@@ -6,7 +6,7 @@ import { actions, getRSSVideoSuccess, getRSSVideoFailed } from './actions'
 function* getRSSVideo() {
     try {
         const response = yield call(api, rssURL)
-        
+
         const rssVideo = yield response.json()
 
         yield put(getRSSVideoSuccess(rssVideo))
@@ -19,6 +19,6 @@ function* getRssVideoWatcher() {
     yield takeLatest(actions.GET_RSS_VIDEO, getRSSVideo)
 }
 
-export default function* home() {
+export default function* rssVideo() {
     yield all([getRssVideoWatcher()])
 }

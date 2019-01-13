@@ -1,7 +1,8 @@
 import { all } from 'redux-saga/effects'
-import homeSaga from '../../containers/home/sagas'
-import headerSaga from '../../containers/header/sagas'
+import authentication from '../../modules/authentication/sagas'
+import database from '../../modules/database/sagas'
+import rssVideo from '../../modules/rssVideo/sagas'
 
 export default function* rootSaga() {
-    yield all([homeSaga(), headerSaga()])
+    yield all([authentication(), database(), rssVideo()])
 }

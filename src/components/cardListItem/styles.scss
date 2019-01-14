@@ -3,20 +3,22 @@
 .card-list-item {
     font-family: $primary-font;
     position: relative;
-    display: flex;
+    // display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
     align-self: stretch;
-    min-height: 10 * $base-unit;
+    max-height: 24 * $base-unit;
     margin: 2 * $base-unit;
     padding: 2 * $base-unit;
     background-color: $bg-emphasis;
     border-radius: $base-unit;
-    overflow: auto;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .card-list-item__edit {
+    position: relative;
     display: flex;
     justify-content: flex-end;
     align-self: stretch;

@@ -34,7 +34,7 @@ export class HomeCard extends PureComponent {
                 ...this.state.dataList,
                 {
                     localId: id,
-                    body: '<b> </b>',
+                    body: '',
                     timestamp: Date.now(),
                 },
             ].sort((a, b) => b.timestamp - a.timestamp),
@@ -69,7 +69,7 @@ export class HomeCard extends PureComponent {
         })
     }
 
-    _closeEditor = () => {
+    _closeEditor = save => {
         const updatedDataList = this.state.dataList.map(item => {
             if (item.localId === this.state.idToEdit)
                 return {
@@ -83,7 +83,7 @@ export class HomeCard extends PureComponent {
 
         this.setState({
             showEditor: false,
-            dataList: updatedDataList,
+            dataList: save ? updatedDataList : this.state.dataList,
         })
     }
 
@@ -106,10 +106,18 @@ export class HomeCard extends PureComponent {
     _cancelChanges = () =>
         this.setState({
             edit: !this.state.edit,
-            dataList: this.props.data.map(item => ({
-                ...item.data(),
-                _id: item.id,
-            })),
+            // dataList: this.props.data.map(item => ({
+            //     ...item.data(),
+            //     _id: item.id,
+            // })),
+
+            dataList: this.props.data
+                .map(item => ({
+                    ...item.data(),
+                    _id: item.id,
+                    localId: item.id,
+                }))
+                .sort((a, b) => b.timestamp - a.timestamp),
         })
 
     componentDidMount() {

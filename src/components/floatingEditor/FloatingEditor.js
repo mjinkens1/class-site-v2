@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { Editor } from 'react-draft-wysiwyg'
-// import CloseIcon from '@material-ui/icons/Close'
 import DoneIcon from '@material-ui/icons/Done'
 import CancelIcon from '@material-ui/icons/Close'
 import { Button } from '@material-ui/core'
+import { toolbarConfig } from '../../config/textEditor'
 import './styles.scss'
 
 export class FloatingEditor extends PureComponent {
@@ -34,10 +34,12 @@ export class FloatingEditor extends PureComponent {
                         <CancelIcon style={{ marginLeft: 4 }} />
                     </Button>
                 </div>
+
                 <Editor
                     editorClassName="floating-editor__editor"
                     editorState={editorState}
                     onEditorStateChange={onEditorStateChange}
+                    toolbar={toolbarConfig}
                 />
             </div>
         )

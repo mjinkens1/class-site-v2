@@ -1,8 +1,7 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-// import MenuItem from '@material-ui/core/MenuItem'
-import { Typography, Button, IconButton, Menu } from '@material-ui/core'
+import { Button, IconButton, Menu, Typography } from '@material-ui/core'
 import { LoginMenu } from './LoginMenu'
 import { getHeaderClass, getTitleFromRoute } from '../../util'
 import { auth } from '../../config/firebase'
@@ -32,8 +31,9 @@ export class Header extends PureComponent {
         this.setState({ anchorEl: event.currentTarget })
     }
 
-    _handleClose = () => {
-        this.setState({ anchorEl: null })
+    _handleClose = event => {
+        if (event.target && event.target.id !== 'email' && event.target.id !== 'password')
+            this.setState({ anchorEl: null })
     }
 
     _logout = () => {
@@ -98,7 +98,8 @@ export class Header extends PureComponent {
                     onClose={this._handleClose}
                 >
                     {user ? (
-                        <Fragment>
+
+                        <div className='header__logout-menu'>
                             <div className="login-menu-current-user">
                                 <AccountCircle
                                     style={{ margin: 4, marginRight: 0 }}
@@ -125,10 +126,11 @@ export class Header extends PureComponent {
                             >
                                 LOGOUT
                             </Button>
-                        </Fragment>
+                        </div>
+
                     ) : (
-                        <LoginMenu login={login} loginError={loginError} />
-                    )}
+                            <LoginMenu login={login} loginError={loginError} />
+                        )}
                 </Menu>
             </div>
         )

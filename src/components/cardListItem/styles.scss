@@ -5,13 +5,17 @@
     position: relative;
     // display: flex;
     flex-direction: column;
+<<<<<<< HEAD
     justify-content: center;
     align-items: flex-start;
+=======
+    justify-content: flex-start;
+    align-items: center;
+>>>>>>> 31472b561fa5e069e0ae118c2dffb63c3cc54160
     align-self: stretch;
     max-height: 24 * $base-unit;
     margin: 2 * $base-unit;
-    padding: 2 * $base-unit;
-    background-color: $bg-emphasis;
+    // background-color: $bg-emphasis;
     border-radius: $base-unit;
     overflow: hidden;
     cursor: pointer;
@@ -22,6 +26,11 @@
     display: flex;
     justify-content: flex-end;
     align-self: stretch;
+}
+
+.card-list-item__text {
+    margin-left: 2 * $base-unit;
+    color: gray;
 }
 
 .card-list-item p {

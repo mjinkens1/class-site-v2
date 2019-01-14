@@ -23,12 +23,17 @@ class LoginMenuBase extends PureComponent {
         login(email, password)
     }
 
+    _onSubmit = event => {
+        event.preventDefault()
+        this._login()
+    }
+
     render() {
         const { loginError } = this.props,
             { email, password, showPassword } = this.state
 
         return (
-            <form className="login-menu-container">
+            <form className="login-menu-container" noValidate onSubmit={this._onSubmit}>
                 <Typography variant="h6" align="center">
                     Login
                 </Typography>
@@ -37,7 +42,7 @@ class LoginMenuBase extends PureComponent {
                     id="email"
                     label="Email"
                     className="login-menu-text-field"
-                    autoFocus={true}
+                    autoFocus
                     value={email}
                     onChange={({ target }) =>
                         this._handleTextChange('email', target.value)
@@ -67,6 +72,7 @@ class LoginMenuBase extends PureComponent {
                         color: 'white',
                         backgroundColor: 'rgb(225, 59, 30)',
                     }}
+                    type='submit'
                     variant="contained"
                     className="login-menu-login-button"
                     onClick={this._login}

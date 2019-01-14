@@ -19,9 +19,9 @@ export class Home extends PureComponent {
 
     _onScroll = () => {
         const scrollTop =
-                window.scrollY ||
-                window.scrollTop ||
-                document.getElementsByTagName('html')[0].scrollTop,
+            window.scrollY ||
+            window.scrollTop ||
+            document.getElementsByTagName('html')[0].scrollTop,
             image = document.querySelector('.main-img')
 
         image.style.backgroundPosition = `35vw calc(-25vh - ${scrollTop *
@@ -65,16 +65,16 @@ export class Home extends PureComponent {
 
     render() {
         const {
-                wodData,
-                getRSSVideo,
-                rssVideo,
-                user,
-                getDocsFromDb,
-                updateDb,
-                announcementsData,
-                parentsData,
-                otherData,
-            } = this.props,
+            wodData,
+            getRSSVideo,
+            rssVideo,
+            user,
+            getDocsFromDb,
+            updateDb,
+            announcementsData,
+            parentsData,
+            otherData,
+        } = this.props,
             { open } = this.state
 
         return (
@@ -135,6 +135,7 @@ export class Home extends PureComponent {
                                 data={announcementsData}
                                 getDocsFromDb={getDocsFromDb}
                                 updateDb={updateDb}
+                                itemAvatar={<AnnouncementIcon />}
                             />
                             <HomeCard
                                 user={user}
@@ -143,6 +144,7 @@ export class Home extends PureComponent {
                                 data={parentsData}
                                 getDocsFromDb={getDocsFromDb}
                                 updateDb={updateDb}
+                                itemAvatar={<PeopleIcon />}
                             />
                             <HomeCard
                                 user={user}
@@ -151,6 +153,7 @@ export class Home extends PureComponent {
                                 data={otherData}
                                 getDocsFromDb={getDocsFromDb}
                                 updateDb={updateDb}
+                                itemAvatar={<ListIcon />}
                             />
                             <Wod
                                 title="Word of the Day"

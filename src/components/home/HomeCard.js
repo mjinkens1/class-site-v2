@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import { CircularProgress, List } from '@material-ui/core'
 import { Card } from '../common/card/Card'
 import { EditTools } from '../editTools/EditTools'
 import { CardListItem } from '../cardListItem/CardListItem'
@@ -125,7 +125,7 @@ export class HomeCard extends PureComponent {
         })
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         const { data } = this.props
 
         if (!prevProps.data && data)
@@ -141,7 +141,7 @@ export class HomeCard extends PureComponent {
     }
 
     render() {
-        const { icon, title, user, data } = this.props,
+        const { icon, title, user, data, itemAvatar } = this.props,
             { dataList, edit, showEditor, editorState } = this.state
 
         return (
@@ -168,7 +168,7 @@ export class HomeCard extends PureComponent {
 
                     {data ? (
                         <div className="card-data">
-                            <ul>
+                            <List>
                                 {dataList.map(listItem => {
                                     return (
                                         <CardListItem
@@ -178,22 +178,24 @@ export class HomeCard extends PureComponent {
                                             id={listItem._id}
                                             localId={listItem.localId}
                                             body={listItem.body}
+                                            title={listItem.title}
                                             deleteItem={this._deleteItem}
                                             editItem={this._editItem}
                                             edit={edit}
+                                            avatar={itemAvatar}
                                         />
                                     )
                                 })}
-                            </ul>
+                            </List>
                         </div>
                     ) : (
-                        <div className="home-card__progress">
-                            <CircularProgress
-                                size={30}
-                                style={{ color: 'red' }}
-                            />
-                        </div>
-                    )}
+                            <div className="home-card__progress">
+                                <CircularProgress
+                                    size={30}
+                                    style={{ color: 'red' }}
+                                />
+                            </div>
+                        )}
                 </div>
                 <div className="card-info">
                     {icon}

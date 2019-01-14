@@ -6,12 +6,11 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     align-self: stretch;
     min-height: 10 * $base-unit;
     margin: 2 * $base-unit;
-    padding: 2 * $base-unit;
-    background-color: $bg-emphasis;
+    // background-color: $bg-emphasis;
     border-radius: $base-unit;
     overflow: auto;
 }
@@ -20,6 +19,11 @@
     display: flex;
     justify-content: flex-end;
     align-self: stretch;
+}
+
+.card-list-item__text {
+    margin-left: 2 * $base-unit;
+    color: gray;
 }
 
 .card-list-item p {

@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import ReactHtmlParser from 'react-html-parser'
-import { Avatar, Divider, ListItem, ListItemAvatar, ListItemText, IconButton, Tooltip } from '@material-ui/core'
+import { Avatar, ListItem, ListItemAvatar, ListItemText, IconButton, Tooltip } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Create'
 import './styles.scss'
@@ -32,7 +32,7 @@ export const CardListItem = ({
             )}
             <ListItem alignItems="center" divider>
                 <ListItemAvatar>
-                    <Avatar>{avatar}</Avatar>
+                    <Avatar style={{ backgroundColor: 'rgb(225, 59, 30)' }}>{avatar}</Avatar>
                 </ListItemAvatar>
                 <div className='card-list-item__text'>
                     <ListItemText
@@ -41,6 +41,5 @@ export const CardListItem = ({
                     {ReactHtmlParser(body)}
                 </div>
             </ListItem>
-            <Divider />
         </div>
     )

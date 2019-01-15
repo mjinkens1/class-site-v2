@@ -106,11 +106,6 @@ export class HomeCard extends PureComponent {
     _cancelChanges = () =>
         this.setState({
             edit: !this.state.edit,
-            // dataList: this.props.data.map(item => ({
-            //     ...item.data(),
-            //     _id: item.id,
-            // })),
-
             dataList: this.props.data
                 .map(item => ({
                     ...item.data(),
@@ -197,13 +192,13 @@ export class HomeCard extends PureComponent {
                             </List>
                         </div>
                     ) : (
-                            <div className="home-card__progress">
-                                <CircularProgress
-                                    size={30}
-                                    style={{ color: 'red' }}
-                                />
-                            </div>
-                        )}
+                        <div className="home-card__progress">
+                            <CircularProgress
+                                size={30}
+                                style={{ color: 'red' }}
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className="card-info">
                     {icon}

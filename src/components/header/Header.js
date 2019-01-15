@@ -32,7 +32,12 @@ export class Header extends PureComponent {
     }
 
     _handleClose = event => {
-        if (event.target && event.target.id !== 'email' && event.target.id !== 'password')
+        if (
+            event &&
+            event.target &&
+            event.target.id !== 'email' &&
+            event.target.id !== 'password'
+        )
             this.setState({ anchorEl: null })
     }
 
@@ -98,8 +103,7 @@ export class Header extends PureComponent {
                     onClose={this._handleClose}
                 >
                     {user ? (
-
-                        <div className='header__logout-menu'>
+                        <div className="header__logout-menu">
                             <div className="login-menu-current-user">
                                 <AccountCircle
                                     style={{ margin: 4, marginRight: 0 }}
@@ -127,10 +131,9 @@ export class Header extends PureComponent {
                                 LOGOUT
                             </Button>
                         </div>
-
                     ) : (
-                            <LoginMenu login={login} loginError={loginError} />
-                        )}
+                        <LoginMenu login={login} loginError={loginError} />
+                    )}
                 </Menu>
             </div>
         )

@@ -19,6 +19,7 @@
     display: flex;
     justify-content: flex-end;
     align-self: stretch;
+    height: 16 * $base-unit;
 }
 
 .card-list-item__text {

@@ -20,6 +20,7 @@ export class HomeCard extends PureComponent {
     state = {
         edit: false,
         dataList: [],
+        itemTitle: null
     }
 
     _toggleEdit = () => this.setState({ edit: !this.state.edit })
@@ -70,10 +71,14 @@ export class HomeCard extends PureComponent {
     }
 
     _closeEditor = save => {
+        if (save && !this.state.itemTitle)
+            return this.setState({ inputError: true })
+
         const updatedDataList = this.state.dataList.map(item => {
             if (item.localId === this.state.idToEdit)
                 return {
                     ...item,
+                    title: this.state.itemTitle,
                     body: draftToHtml(
                         convertToRaw(this.state.editorState.getCurrentContent())
                     ),
@@ -83,6 +88,8 @@ export class HomeCard extends PureComponent {
 
         this.setState({
             showEditor: false,
+            inputError: false,
+            itemTitle: null,
             dataList: save ? updatedDataList : this.state.dataList,
         })
     }
@@ -92,6 +99,8 @@ export class HomeCard extends PureComponent {
             editorState,
         })
     }
+
+    _onInputTextChange = text => this.setState({ itemTitle: text })
 
     _saveChanges = () => {
         const homeRef = db
@@ -145,7 +154,7 @@ export class HomeCard extends PureComponent {
 
     render() {
         const { icon, title, user, data, itemAvatar } = this.props,
-            { dataList, edit, showEditor, editorState } = this.state
+            { dataList, edit, showEditor, editorState, itemTitle, inputError } = this.state
 
         return (
             <Card id={title} className="card">
@@ -166,6 +175,9 @@ export class HomeCard extends PureComponent {
                             showEditor={showEditor}
                             editorState={editorState}
                             onEditorStateChange={this._onEditorStateChange}
+                            onTextChange={this._onInputTextChange}
+                            title={itemTitle}
+                            inputError={inputError}
                         />
                     )}
 
@@ -192,13 +204,13 @@ export class HomeCard extends PureComponent {
                             </List>
                         </div>
                     ) : (
-                        <div className="home-card__progress">
-                            <CircularProgress
-                                size={30}
-                                style={{ color: 'red' }}
-                            />
-                        </div>
-                    )}
+                            <div className="home-card__progress">
+                                <CircularProgress
+                                    size={30}
+                                    style={{ color: 'red' }}
+                                />
+                            </div>
+                        )}
                 </div>
                 <div className="card-info">
                     {icon}

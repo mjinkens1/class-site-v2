@@ -16,6 +16,11 @@
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
+    align-items: center;
+    margin-bottom: $base-unit;
+    padding-top: 2 * $base-unit;
+    background: white;
+    border-radius: $base-unit;
 }
 
 .floating-editor__editor {
@@ -28,6 +33,13 @@
 .floating-editor__editor a {
     color: #0000ff;
     text-decoration: underline;
+}
+
+.floating-editor__input-wrapper {
+    display: flex;
+    flex-grow: 1;
+    padding-left: 4 * $base-unit;
+    padding-bottom: 2 * $base-unit;
 }
 
 .roboto-font {

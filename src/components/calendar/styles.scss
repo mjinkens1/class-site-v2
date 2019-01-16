@@ -25,3 +25,15 @@
     display: 'flex';
     justify-content: space-evenly;
 }
+
+@media only screen and (max-width: 414px) {
+    .calendar {
+        width: calc(100% - #{2 * $base-unit});
+        margin: 3 * $base-unit $base-unit;
+    }
+
+    .tile {
+        min-height: auto;
+        max-height: auto;
+    }
+}

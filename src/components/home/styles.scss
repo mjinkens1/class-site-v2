@@ -140,7 +140,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: calc(100% - 4 * $base-unit);
     min-width: 40 * $base-unit;
     max-width: 40 * $base-unit;
     padding: 4 * $base-unit;
@@ -167,13 +166,60 @@
     height: 100%;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 414px) {
     .landing {
         justify-content: center;
-        height: 30vh;
+        min-height: 30vh;
+        padding: 0;
     }
 
     .main-img-wrapper {
         display: none;
+    }
+
+    .header-1 {
+        margin-bottom: -6 * $base-unit;
+    }
+    
+    .header-2 {
+        font-size: 28px;
+    }
+
+    .card {
+        flex-direction: column-reverse;
+        width: calc(100% - #{4 * $base-unit});
+        margin: 2 * $base-unit;
+    }
+
+    .card-info {
+        flex-direction: row;
+        flex-grow: 1;
+        width: calc(100vw - #{4 * $base-unit});
+        max-width: calc(100vw - #{4 * $base-unit});
+    }
+
+    .card-title {
+        display: flex;
+        flex-grow: 1;
+        width: calc(100vw - #{4 * $base-unit});
+        max-width: calc(100vw - #{4 * $base-unit});
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .card {
+        flex-direction: column-reverse;
+    }
+
+    .card-info {
+        flex-direction: row;
+        justify-content: flex-start;
+        width: calc(100vw - #{20 * $base-unit});
+        max-width: calc(100vw - #{20 * $base-unit});
+        padding-left: 6 * $base-unit;
+    }
+
+    .card-title {
+        margin-left: 6 * $base-unit;
     }
 }

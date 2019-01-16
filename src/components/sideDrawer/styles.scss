@@ -9,9 +9,7 @@ a {
     background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
 }
 
-.side-list {
-    width: 400;
-}
+
 
 .drawer-top {
     display: flex;
@@ -19,7 +17,9 @@ a {
     justify-content: center;
     align-items: center;
     width: 400px;
+    max-width: 100vw;
     height: 250px;
+    text-align: center;
     background-image: linear-gradient($bg-secondary-light, $bg-secondary-dark);
     background-size: contain;
 }

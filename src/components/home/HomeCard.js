@@ -20,7 +20,7 @@ export class HomeCard extends PureComponent {
     state = {
         edit: false,
         dataList: [],
-        itemTitle: null
+        itemTitle: ''
     }
 
     _toggleEdit = () => this.setState({ edit: !this.state.edit })
@@ -67,11 +67,12 @@ export class HomeCard extends PureComponent {
         this.setState({
             showEditor: true,
             idToEdit: id,
+            itemTitle: this.state.dataList.find(item => item._id === id || item.localId === id).title || ''
         })
     }
 
     _closeEditor = save => {
-        if (save && !this.state.itemTitle)
+        if (save && !this.state.itemTitle.length > 0)
             return this.setState({ inputError: true })
 
         const updatedDataList = this.state.dataList.map(item => {
@@ -89,7 +90,7 @@ export class HomeCard extends PureComponent {
         this.setState({
             showEditor: false,
             inputError: false,
-            itemTitle: null,
+            itemTitle: '',
             dataList: save ? updatedDataList : this.state.dataList,
         })
     }

@@ -22,37 +22,31 @@ export const CardListItem = ({
     edit,
     avatar,
 }) => (
-    <div className="card-list-item" id={id}>
-        {edit && (
-            <div className="card-list-item__edit">
-                <Tooltip title="Edit Item">
-                    <IconButton onClick={() => editItem(localId)}>
-                        <EditIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete Item">
-                    <IconButton onClick={() => deleteItem(localId)}>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
-            </div>
-        )}
-        <ListItem alignItems="center" divider>
-            <ListItemAvatar>
-                <Avatar
-                    style={
-                        {
-                            // backgroundColor: 'rgb(225, 59, 30)',
-                        }
-                    }
-                >
-                    {avatar}
-                </Avatar>
-            </ListItemAvatar>
-            <div className="card-list-item__text">
-                <ListItemText primary={title} />
-                {ReactHtmlParser(body)}
-            </div>
-        </ListItem>
-    </div>
-)
+        <div className="card-list-item" id={id}>
+            {edit && (
+                <div className="card-list-item__edit">
+                    <Tooltip title="Edit Item">
+                        <IconButton onClick={() => editItem(localId)}>
+                            <EditIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Item">
+                        <IconButton onClick={() => deleteItem(localId)}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                </div>
+            )}
+            <ListItem alignItems="center" divider>
+                <ListItemAvatar>
+                    <Avatar>
+                        {avatar}
+                    </Avatar>
+                </ListItemAvatar>
+                <div className="card-list-item__text">
+                    <ListItemText primary={title} />
+                    {ReactHtmlParser(body)}
+                </div>
+            </ListItem>
+        </div>
+    )

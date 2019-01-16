@@ -63,3 +63,12 @@
 .header__logout-menu {
     outline: none;
 }
+
+@media only screen and (max-width: 414px) {
+    .header {
+        position: relative;
+        padding: $base-unit;
+        width: calc(100vw - #{2 * $base-unit});
+        background: $bg-primary-dark;
+    }
+}

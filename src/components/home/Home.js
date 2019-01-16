@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import { DownButton } from '../common/downButton/DownButton'
 import { Calendar } from '../calendar/Calendar'
 import { HomeCard } from './HomeCard'
-import { Wod } from './Wod'
 import { RSSVideo } from '../rssVideo/RSSVideo'
 import { IconButton, Snackbar } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
@@ -78,7 +77,7 @@ export class Home extends PureComponent {
             { open } = this.state
 
         return (
-            <div id="home" style={{ overflowX: 'hidden' }}>
+            <div className="home">
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -155,10 +154,14 @@ export class Home extends PureComponent {
                                 updateDb={updateDb}
                                 itemAvatar={<ListIcon />}
                             />
-                            <Wod
+                            <HomeCard
                                 title="Word of the Day"
                                 icon={<BookIcon className="icon" />}
+                                reverse
                                 data={wodData}
+                                getDocsFromDb={getDocsFromDb}
+                                updateDb={updateDb}
+                                itemAvatar={<ListIcon />}
                             />
                         </div>
                     </div>

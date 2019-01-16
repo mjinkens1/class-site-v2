@@ -33,3 +33,17 @@
     color: #0000ff;
     text-decoration: underline;
 }
+
+@media only screen and (max-width: 414px) {
+    .card-list-item {
+        align-items: flex-start;
+    }
+
+    .card-list-item__avatar {
+        display: none;
+    }
+
+    .card-list-item__text {
+        margin: 0
+    }
+}

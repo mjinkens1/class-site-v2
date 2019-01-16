@@ -37,12 +37,14 @@ export const CardListItem = ({
                     </Tooltip>
                 </div>
             )}
-            <ListItem alignItems="center" divider>
-                <ListItemAvatar>
-                    <Avatar>
-                        {avatar}
-                    </Avatar>
-                </ListItemAvatar>
+            <ListItem alignItems={window.innerWidth > 414 ? "center" : "flex-start"} divider>
+                <div className='card-list-item__avatar'>
+                    <ListItemAvatar>
+                        <Avatar>
+                            {avatar}
+                        </Avatar>
+                    </ListItemAvatar>
+                </div>
                 <div className="card-list-item__text">
                     <ListItemText primary={title} />
                     {ReactHtmlParser(body)}

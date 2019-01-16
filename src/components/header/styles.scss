@@ -13,7 +13,7 @@
 
 .header {
     position: fixed;
-    width: calc(100vw - #{10 * $base-unit});
+    width: calc(100vw - #{6 * $base-unit});
     z-index: 1;
     display: flex;
     flex: 1;

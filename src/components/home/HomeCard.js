@@ -154,11 +154,11 @@ export class HomeCard extends PureComponent {
     }
 
     render() {
-        const { icon, title, user, data, itemAvatar } = this.props,
+        const { icon, title, reverse, user, data, itemAvatar } = this.props,
             { dataList, edit, showEditor, editorState, itemTitle, inputError } = this.state
 
         return (
-            <Card id={title} className="card">
+            <Card id={title} className={`card ${reverse ? 'card-reverse' : ''}`}>
                 <div className="card-body">
                     {user && (
                         <EditTools

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { DownButton } from '../common/downButton/DownButton'
 import { Calendar } from '../calendar/Calendar'
 import { HomeCard } from './HomeCard'
+import { WOD } from './WOD'
 import { RSSVideo } from '../rssVideo/RSSVideo'
 import { IconButton, Snackbar } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
@@ -49,6 +50,7 @@ export class Home extends PureComponent {
         this.setState({ innerHeight: window.innerHeight })
         window.addEventListener('scroll', this._onScroll)
         window.addEventListener('resize', this._onResize)
+        this.props.getRSSWOD()
     }
 
     componentDidUpdate(prevProps) {
@@ -64,7 +66,6 @@ export class Home extends PureComponent {
 
     render() {
         const {
-            wodData,
             getRSSVideo,
             rssVideo,
             user,
@@ -73,6 +74,7 @@ export class Home extends PureComponent {
             announcementsData,
             parentsData,
             otherData,
+            rssWOD
         } = this.props,
             { open } = this.state
 
@@ -154,14 +156,11 @@ export class Home extends PureComponent {
                                 updateDb={updateDb}
                                 itemAvatar={<ListIcon />}
                             />
-                            <HomeCard
+                            <WOD
                                 title="Word of the Day"
                                 icon={<BookIcon className="icon" />}
                                 reverse
-                                data={wodData}
-                                getDocsFromDb={getDocsFromDb}
-                                updateDb={updateDb}
-                                itemAvatar={<ListIcon />}
+                                data={rssWOD}
                             />
                         </div>
                     </div>

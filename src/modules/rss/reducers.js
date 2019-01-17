@@ -3,7 +3,9 @@ import { actions } from './actions'
 
 const intialState = Map({
     gettingRSSVideo: false,
-    rssData: null,
+    rssVideo: null,
+    gettingRSSWOD: false,
+    rssWOD: null
 })
 
 export default (state = intialState, action) => {
@@ -23,6 +25,21 @@ export default (state = intialState, action) => {
 
         case action.GET_RSS_VIDEO_FAILED: {
             return state.set('gettingRSSVideo', false)
+        }
+
+        case action.GET_RSS_WOD: {
+            return state.set('gettingRSSWOD', true)
+        }
+
+        case actions.GET_RSS_WOD_SUCCESS: {
+            return state.merge({
+                rssWOD: fromJS(payload),
+                gettingRSSWOD: false,
+            })
+        }
+
+        case action.GET_RSS_WDO_FAILED: {
+            return state.set('gettingRSSWOD', false)
         }
 
         default:

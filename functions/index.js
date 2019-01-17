@@ -1,1 +1,2 @@
-exports.getRSS = require('./src/getRSS').getRSS
+exports.getRSSVideo = require('./src/getRSSVideo').getRSSVideo
+exports.getRSSWOD = require('./src/getRSSWOD').getRSSWOD

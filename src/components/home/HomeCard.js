@@ -126,16 +126,29 @@ export class HomeCard extends PureComponent {
         })
 
     componentDidMount() {
-        const homeRef = db
-            .collection('data')
-            .doc('home')
-            .collection(`home-card-${this.props.title}`)
+        const { data } = this.props
+        if (!data) {
+            const homeRef = db
+                .collection('data')
+                .doc('home')
+                .collection(`home-card-${this.props.title}`)
 
-        this.props.getDocsFromDb(homeRef, `home-card-${this.props.title}`)
+            this.props.getDocsFromDb(homeRef, `home-card-${this.props.title}`)
 
-        this.setState({
-            editorState: EditorState.createEmpty(),
-        })
+            this.setState({
+                editorState: EditorState.createEmpty(),
+            })
+        }
+        else
+            this.setState({
+                dataList: data
+                    .map(item => ({
+                        ...item.data(),
+                        _id: item.id,
+                        localId: item.id,
+                    }))
+                    .sort((a, b) => b.timestamp - a.timestamp),
+            })
     }
 
     componentDidUpdate(prevProps) {

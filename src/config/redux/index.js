@@ -3,14 +3,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import createSagaMiddleware from 'redux-saga'
 import authentication from '../../modules/authentication/reducers'
 import database from '../../modules/database/reducers'
-import rssVideo from '../../modules/rssVideo/reducers'
+import rss from '../../modules/rss/reducers'
 
 import rootSaga from '../sagas'
 
 const rootReducer = combineReducers({
     authentication,
     database,
-    rssVideo,
+    rss,
 })
 
 const sagaMiddleware = createSagaMiddleware()

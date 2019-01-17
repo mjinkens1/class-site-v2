@@ -17,3 +17,13 @@ export const getHeaderClass = routeName => {
     if (routeName !== '/home' && routeName !== '/404') return 'header-red'
     else return ''
 }
+
+export const mapWOD = wod => {
+    const desc = wod.description[0].split(/[0-9]/)
+
+    return desc.map((item, index) => {
+        if (index > 0)
+            return `${index}${item}`
+        else return item
+    })
+}

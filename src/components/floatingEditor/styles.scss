@@ -47,6 +47,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.material-icons {
+    text-rendering: optimizeLegibility;
+}
+
 @media only screen and (max-width: 414px) {
     .floating-editor {
         width: 93.5%;

@@ -1,12 +1,14 @@
 import { connect } from 'react-redux'
 import { toJS } from '../toJS'
 import { Home } from '../../components/home/Home'
-import { getRSSVideo } from '../../modules/rssVideo/actions'
+import { getRSSVideo, getRSSWOD } from '../../modules/rss/actions'
 import { getDocsFromDb, updateDb } from '../../modules/database/actions'
 
-const mapStateToProps = ({ authentication, database, rssVideo }) => ({
-    gettingRSSData: rssVideo.get('gettingRSSData'),
-    rssVideo: rssVideo.get('rssVideo'),
+const mapStateToProps = ({ authentication, database, rss }) => ({
+    gettingRSSVideo: rss.get('gettingRSSVideo'),
+    rssVideo: rss.get('rssVideo'),
+    gettingRSSWOD: rss.get('gettingRSSWOD'),
+    rssWOD: rss.get('rssWOD'),
     user: authentication.get('user'),
     updatingDb: database.get('updatingDb'),
     updateDbFailed: database.get('updateDbFailed'),
@@ -18,6 +20,7 @@ const mapStateToProps = ({ authentication, database, rssVideo }) => ({
 const mapDispatchToProps = {
     getDocsFromDb,
     getRSSVideo,
+    getRSSWOD,
     updateDb,
 }
 

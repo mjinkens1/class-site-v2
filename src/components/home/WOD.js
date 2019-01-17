@@ -20,7 +20,7 @@ export const WOD = ({ icon, title, reverse, data }) => {
                             <div className='wod__data--align'>
                                 {
                                     data.description.slice(1).map(item =>
-                                        <Typography variant='h6' align='left' gutter style={{ marginLeft: 8 }}>
+                                        <Typography variant='h6' align='left' gutterBottom style={{ marginLeft: 8 }} key={item}>
                                             {item}
                                         </Typography>)
                                 }

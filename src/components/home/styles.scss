@@ -194,6 +194,20 @@
 }
 
 @media only screen and (max-width: 768px) {
+    .landing {
+        justify-content: center;
+        min-height: 30vh;
+        padding: 0;
+        background: url('../../assets/images/main-bg.jpg');
+        background-position: center center;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+    }
+
+    .main-img-wrapper {
+        display: none;
+    }
+
     .card {
         flex-direction: column-reverse;
     }

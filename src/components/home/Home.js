@@ -15,6 +15,8 @@ import './styles.scss'
 export class Home extends PureComponent {
     state = {
         open: false,
+        innerWidth: null,
+        innerHeight: null
     }
 
     _onScroll = () => {
@@ -35,19 +37,22 @@ export class Home extends PureComponent {
         })
     }
 
-    _onDownButtonClick = () =>
+    _onDownButtonClick = () => {
+        const { innerWidth, innerHeight } = this.state
+
         window.scrollTo({
             left: 0,
-            top: this.state.innerHeight * 0.7,
+            top: innerHeight * (innerWidth > 768 ? 0.7 : 0.3),
             behavior: 'smooth',
         })
+    }
 
     _open = () => this.setState({ open: true })
 
     _handleClose = () => this.setState({ open: false })
 
     componentDidMount() {
-        this.setState({ innerHeight: window.innerHeight })
+        this.setState({ innerWidth: window.innerWidth, innerHeight: window.innerHeight })
         window.addEventListener('scroll', this._onScroll)
         window.addEventListener('resize', this._onResize)
         this.props.getRSSWOD()

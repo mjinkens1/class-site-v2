@@ -8,11 +8,18 @@ import { auth } from '../../config/firebase'
 import './styles.scss'
 
 export class Header extends PureComponent {
-    state = {
-        title: '',
-        headerClass: '',
-        currentRoute: null,
-        anchorEl: null,
+    constructor() {
+        super()
+
+        this.state = {
+            title: '',
+            headerClass: '',
+            currentRoute: null,
+            anchorEl: null,
+        }
+
+        this.emailRef = React.createRef()
+        this.passwordRef = React.createRef()
     }
 
     _getHeader = () => {
@@ -39,6 +46,11 @@ export class Header extends PureComponent {
             event.target.id !== 'password'
         )
             this.setState({ anchorEl: null })
+        else if (event && event.target && event.target.id === 'email')
+            this.passwordRef.current.focus()
+        else if (event && event.target && event.target.id === 'password')
+            this.emailRef.current.focus()
+
     }
 
     _logout = () => {
@@ -67,7 +79,11 @@ export class Header extends PureComponent {
     render() {
         const { toggleDrawer, login, loginError, user } = this.props,
             { title, headerClass, anchorEl } = this.state,
-            open = Boolean(anchorEl)
+            open = Boolean(anchorEl),
+            refs = {
+                emailRef: this.emailRef,
+                passwordRef: this.passwordRef
+            }
 
         return (
             <div className={`header ${headerClass}`}>
@@ -132,8 +148,8 @@ export class Header extends PureComponent {
                             </Button>
                         </div>
                     ) : (
-                        <LoginMenu login={login} loginError={loginError} />
-                    )}
+                            <LoginMenu login={login} loginError={loginError} ref={refs} />
+                        )}
                 </Menu>
             </div>
         )

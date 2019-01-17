@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import TextField from '@material-ui/core/TextField'
 import { Button, Typography } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
 
 class LoginMenuBase extends PureComponent {
     state = {
@@ -29,7 +28,7 @@ class LoginMenuBase extends PureComponent {
     }
 
     render() {
-        const { loginError } = this.props,
+        const { loginError, innerRefs } = this.props,
             { email, password, showPassword } = this.state
 
         return (
@@ -41,6 +40,7 @@ class LoginMenuBase extends PureComponent {
                 <TextField
                     id="email"
                     label="Email"
+                    inputRef={innerRefs && innerRefs.emailRef}
                     className="login-menu-text-field"
                     autoFocus
                     value={email}
@@ -52,6 +52,7 @@ class LoginMenuBase extends PureComponent {
                 <TextField
                     id="password"
                     label="Password"
+                    inputRef={innerRefs && innerRefs.passwordRef}
                     type={showPassword ? 'text' : 'password'}
                     className="login-menu-text-field"
                     value={password}
@@ -84,10 +85,6 @@ class LoginMenuBase extends PureComponent {
     }
 }
 
-const styles = {
-    focused: {
-        textDecorationColor: 'green',
-    },
-}
-
-export const LoginMenu = withStyles(styles)(LoginMenuBase)
+export const LoginMenu = React.forwardRef((props, ref) =>
+    <LoginMenuBase innerRefs={ref} {...props} />
+)

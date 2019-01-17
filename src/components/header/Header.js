@@ -148,7 +148,7 @@ export class Header extends PureComponent {
                             </Button>
                         </div>
                     ) : (
-                            <LoginMenu login={login} loginError={loginError} ref={refs} />
+                            <LoginMenu login={login} loginError={loginError} ref={refs} handleClose={this._handleClose} />
                         )}
                 </Menu>
             </div>

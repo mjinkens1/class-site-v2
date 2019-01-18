@@ -14,7 +14,7 @@ export const WOD = ({ icon, title, reverse, data }) => {
                             <Typography variant='display1' align='left' gutterBottom>
                                 {data.title}
                             </Typography>
-                            <Typography variant='h6' align='left' style={{ marginLeft: 8 }}>
+                            <Typography variant='h6' align='left' style={{ marginLeft: 16, fontWeight: '300' }}>
                                 {data.description[0]}
                             </Typography>
                             <div className='wod__data--align'>

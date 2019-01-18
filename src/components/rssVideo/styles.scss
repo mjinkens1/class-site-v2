@@ -2,9 +2,8 @@
 
 .video {
     display: flex;
-    flex-grow: 1;
     margin: 6 * $base-unit;
-    margin-top: 0;
+    margin-top: auto;
     border-radius: $base-unit;
     box-shadow: $shadow-primary;
     overflow: hidden;

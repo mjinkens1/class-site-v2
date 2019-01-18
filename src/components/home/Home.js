@@ -81,7 +81,7 @@ export class Home extends PureComponent {
             otherData,
             rssWOD
         } = this.props,
-            { open } = this.state
+            { open, innerWidth } = this.state
 
         return (
             <div className="home">
@@ -127,7 +127,7 @@ export class Home extends PureComponent {
                     </div>
                     <div className="lower-container">
                         <div className="column">
-                            <Calendar />
+                            <Calendar innerWidth={innerWidth} user={user} />
                             <RSSVideo
                                 getRSSVideo={getRSSVideo}
                                 rssVideo={rssVideo}

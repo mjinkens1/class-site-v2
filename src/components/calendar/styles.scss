@@ -15,15 +15,71 @@
     flex-grow: 1;
     justify-content: flex-end;
     min-height: 20 * $base-unit;
-    max-height: 150 * $base-unit;
     background: $bg-primary-light;
     border-radius: $base-unit;
+    border-width: 1px;
     cursor: pointer;
 }
 
 .tile-icons {
     display: 'flex';
     justify-content: space-evenly;
+}
+
+.react-calendar__navigation button[disabled] {
+    background: white;
+}
+
+.react-calendar__tile--active, 
+.react-calendar__tile--active:enabled:hover, 
+.react-calendar__tile--active:enabled:focus {
+    background: $bg-primary-dark
+}
+
+.react-calendar button:enabled:hover {
+    transform: scale(1.1);
+    transition: transform 0.15s;
+}
+
+.calendar__chip {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5 * $base-unit;
+    margin: $base-unit;
+    padding: 0 2 * $base-unit;
+    color: $text-primary-light;
+    font-size: 9px;
+    background: $bg-primary-dark;
+    border-radius: 2.5 * $base-unit;
+}
+
+.calendar__chip__title {
+    max-width: calc(100% - #{3 * $base-unit});
+    white-space: nowrap;      /*keep text on one line */
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.calendar__chip__count {
+    position: absolute;
+    top: -$base-unit / 2;
+    right: -$base-unit / 2;
+    width: 4 * $base-unit;
+    height: 4 * $base-unit;
+    margin: $base-unit;
+    color: $text-secondary-dark;
+    background: $bg-primary-light;
+    border-radius: 50%;
+}
+
+.calendar__chip__count--center-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4 * $base-unit;
+    height: 4 * $base-unit;
 }
 
 @media only screen and (max-width: 414px) {

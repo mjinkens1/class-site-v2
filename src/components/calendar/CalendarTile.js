@@ -3,7 +3,7 @@ import { CalendarChip } from './CalendarChip'
 import { Tooltip } from '@material-ui/core'
 import InfoIcon from '@material-ui/icons/Info'
 
-export const CalendarTile = ({ date, assignmentCount, eventCount, miscCount, innerWidth }) => (
+export const CalendarTile = ({ user, assignmentCount, eventCount, miscCount, innerWidth }) => (
     <div className="tile">
         {
             innerWidth > 667 ?
@@ -29,6 +29,7 @@ export const CalendarTile = ({ date, assignmentCount, eventCount, miscCount, inn
                     </Tooltip>
                 </div>
         }
+        {user && <div></div>}
     </div>
 
 )

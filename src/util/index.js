@@ -27,3 +27,11 @@ export const mapWOD = wod => {
         else return item
     })
 }
+
+export const getMonthAndYearFromDate = date => date.toString().split(' ').slice(1, 4).reduce((acc, val, index) => {
+    return acc + (index === 1 ? '' : val)
+}, '').toLowerCase()
+
+export const getDayMonthYearFromDate = date => date.toString().split(' ').slice(1, 4).reduce((acc, val, index) => {
+    return acc + val
+}, '').toLowerCase() 

@@ -3,6 +3,7 @@ import CalendarComponent from 'react-calendar'
 import { CalendarTile } from './CalendarTile'
 import { Typography } from '@material-ui/core'
 import { ChevronLeft, ChevronRight, FirstPage, LastPage } from '@material-ui/icons'
+import { getMonthAndYearFromDate, getDayMonthYearFromDate } from '../../util'
 import './styles.scss'
 
 export class Calendar extends PureComponent {
@@ -11,21 +12,22 @@ export class Calendar extends PureComponent {
         calendarValue: null
     }
 
-    _onClickDay = value => {
+    _onActiveDateChange = ({ activeStartDate }) => console.log(getMonthAndYearFromDate(activeStartDate))
+
+    _onClickDay = date => {
+        console.log(getDayMonthYearFromDate(date))
     }
 
     _navigationLabel = ({ label }) => <Typography variant='h6' align='center' style={{ color: 'rgb(225, 59, 30)' }}>{label}</Typography>
 
     _tileContent = ({ date }) => {
-        const { innerWidth } = this.props
+        const { innerWidth, user } = this.props
 
-        return <CalendarTile date={date.getTime().toString()} innerWidth={innerWidth} />
+        return <CalendarTile date={date.getTime().toString()} innerWidth={innerWidth} user={user} />
     }
 
     componentDidMount() {
-        const currentMonth = new Date().toString().split(' ').slice(1, 4).reduce((acc, val, index) => {
-            return acc + (index === 1 ? '' : val)
-        }, '').toLowerCase()
+        const currentMonth = getMonthAndYearFromDate(new Date())
 
         this.setState({
             currentMonth,
@@ -46,6 +48,7 @@ export class Calendar extends PureComponent {
                 prev2Label={<FirstPage />}
                 tileContent={this._tileContent}
                 onClickDay={this._onClickDay}
+                onActiveDateChange={this._onActiveDateChange}
                 value={calendarValue}
             />
         )

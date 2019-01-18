@@ -1,10 +1,23 @@
 import React from 'react'
 import { CalendarChip } from './CalendarChip'
-import { Tooltip } from '@material-ui/core'
+import { IconButton, Tooltip } from '@material-ui/core'
 import InfoIcon from '@material-ui/icons/Info'
+import EditIcon from '@material-ui/icons/Create'
 
 export const CalendarTile = ({ user, assignmentCount, eventCount, miscCount, innerWidth }) => (
     <div className="tile">
+        {
+            user &&
+            <div className='calendar__tile__edit'>
+                <div>
+                    <Tooltip title='Edit'>
+                        <IconButton onClick={() => null} style={{ transform: 'scale(0.8)' }}>
+                            <EditIcon fontSize='small' />
+                        </IconButton>
+                    </Tooltip>
+                </div>
+            </div>
+        }
         {
             innerWidth > 667 ?
                 <div className="tile-icons">
@@ -29,7 +42,6 @@ export const CalendarTile = ({ user, assignmentCount, eventCount, miscCount, inn
                     </Tooltip>
                 </div>
         }
-        {user && <div></div>}
     </div>
 
 )

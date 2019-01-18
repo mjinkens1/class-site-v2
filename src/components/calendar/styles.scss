@@ -10,6 +10,7 @@
 }
 
 .tile {
+    // position: relative;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -80,6 +81,17 @@
     align-items: center;
     width: 4 * $base-unit;
     height: 4 * $base-unit;
+}
+
+.calendar__tile__edit {
+    display: none;
+    flex-grow: 1;
+    justify-content: flex-end;
+    margin-bottom: -$base-unit;
+}
+
+.react-calendar button:enabled:hover .calendar__tile__edit {
+    display: flex;
 }
 
 @media only screen and (max-width: 414px) {

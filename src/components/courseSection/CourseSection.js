@@ -1,45 +1,84 @@
 import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
+import { Typography } from '@material-ui/core'
+import { EditTools } from '../editTools/EditTools'
 import { Card } from '../common/card/Card'
-import { getTitleFromRoute } from '../../util'
+import { FilePreview } from './FilePreview'
+import { getFileIcon } from '../../util'
 import './styles.scss'
 
 class CourseSectionBase extends PureComponent {
     state = {
+        edit: false,
+        files: [],
+        selectedFile: {},
         title: '',
     }
 
-    _getTitle = routeName => {
-        const title = getTitleFromRoute(routeName)
-        this.setState({ title })
-    }
+    _getSectionData = () => {}
 
     componentDidMount() {
-        this._getTitle(this.props.location.pathname)
-    }
-
-    componentDidUpdate(prevProps) {
-        const { location } = this.props
-
-        if (prevProps.location.pathname !== location.pathname) {
-            this._getTitle(location.pathname)
-        }
+        this._getSectionData()
     }
 
     render() {
-        const { title } = this.state
+        const { user } = this.props
+        const { edit, files, selectedFile } = this.state
+        const { path, type } = selectedFile
 
         return (
             <div className="course-section__container">
                 <div className="course-section__column">
-                    <Card className="course-section__card">{title}</Card>
+                    <Card className="course-section__card">
+                        {user && (
+                            <div className="course-section__card__edit-tools">
+                                <EditTools
+                                    addItem={this._addItem}
+                                    toggleEdit={this._toggleEdit}
+                                    saveChanges={this._saveChanges}
+                                    cancelChanges={this._cancelChanges}
+                                    edit={edit}
+                                />
+                            </div>
+                        )}
+                        <Typography
+                            variant="display1"
+                            align="left"
+                            gutterBottom
+                            style={{ fontSize: 24, margin: 12 }}
+                        >
+                            Section Materials
+                        </Typography>
+                        {files.map(file => {
+                            const icon = getFileIcon(file)
+                            return console.log(icon)
+                        })}
+                    </Card>
                 </div>
                 <div className="course-section__column">
                     <Card className="course-section__card course-section__card--right">
-                        {title}
+                        {user && (
+                            <div className="course-section__card__edit-tools">
+                                <EditTools
+                                    addItem={this._addItem}
+                                    toggleEdit={this._toggleEdit}
+                                    saveChanges={this._saveChanges}
+                                    cancelChanges={this._cancelChanges}
+                                    edit={edit}
+                                />
+                            </div>
+                        )}
+                        <Typography
+                            variant="display1"
+                            align="left"
+                            gutterBottom
+                            style={{ fontSize: 24, margin: 12 }}
+                        >
+                            Links and Resources
+                        </Typography>
                     </Card>
                     <Card className="course-section__card course-section__card--right">
-                        {title}
+                        <FilePreview path={path} type={type} />
                     </Card>
                 </div>
             </div>

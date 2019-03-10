@@ -1,0 +1,9 @@
+@import '../../../config/styles/index.scss';
+
+.loader__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}

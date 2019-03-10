@@ -27,6 +27,7 @@
 }
 
 .course-section__card {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -43,4 +44,37 @@
     align-self: stretch;
     margin-left: 0;
     height: auto;
+}
+
+.course-section__card-title {
+    margin-left: 6 * $base-unit;
+    color: $text-secondary-dark;
+    font-size: 5 * $base-unit;
+    font-family: $primary-font;
+}
+
+.course-section__card__edit-tools {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.course-section__file-preview {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.course-section__file-preview--default {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.course-section__file-preview__fullscreen-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: $base-unit;
 }

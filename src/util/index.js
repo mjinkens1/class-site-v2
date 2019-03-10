@@ -18,6 +18,8 @@ export const getHeaderClass = routeName => {
     else return 'header--home'
 }
 
+export const getFileIcon = file => 'icon'
+
 export const mapWOD = wod => {
     const desc = wod.description[0].split(/[0-9]/)
 

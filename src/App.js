@@ -6,7 +6,7 @@ import Header from './containers/header/Header'
 import { SideDrawer } from './components/sideDrawer/SideDrawer'
 import Home from './containers/home/Home'
 import { Syllabus } from './components/syllabus/Syllabus'
-import { CourseSection } from './components/courseSection/CourseSection'
+import CourseSection from './containers/courseSection/CourseSection'
 import { PageNotFound } from './components/pageNotFound/PageNotFound'
 import './index.scss'
 

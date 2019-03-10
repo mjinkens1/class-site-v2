@@ -12,8 +12,9 @@ export const EditTools = ({
     edit,
     saveChanges,
     cancelChanges,
+    style,
 }) => (
-    <div className="edit-tools-absolute">
+    <div className="edit-tools-absolute" style={{ style }}>
         <div className="edit-tools__container">
             {edit && (
                 <div className={edit ? 'edit-tools__edit-button--slide' : ''}>

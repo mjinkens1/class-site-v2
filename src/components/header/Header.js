@@ -59,11 +59,10 @@ export class Header extends PureComponent {
 
     componentDidMount() {
         this._getHeader()
-        if (this.props.history.location.pathname === '/home')
-            auth.onAuthStateChanged(
-                user => this.props.updateAuth(user),
-                () => this.props.updateAuth(null)
-            )
+        auth.onAuthStateChanged(
+            user => this.props.updateAuth(user),
+            () => this.props.updateAuth(null)
+        )
     }
 
     componentDidUpdate(prevProps) {

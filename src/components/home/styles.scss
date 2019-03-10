@@ -1,5 +1,7 @@
 @import '../../config/styles/index.scss';
 
+// TODO: Refactor to BEM
+
 @keyframes fadein {
     from {
         opacity: 0;
@@ -233,7 +235,8 @@
         justify-content: center;
         min-height: 30vh;
         padding: 0;
-        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('../../assets/images/main-bg.jpg');
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
+            url('../../assets/images/main-bg.jpg');
         background-position: center center;
         background-size: 100% auto;
         background-repeat: no-repeat;
@@ -246,7 +249,7 @@
     .header-1 {
         margin-bottom: -6 * $base-unit;
     }
-    
+
     .header-2 {
         font-size: 28px;
     }

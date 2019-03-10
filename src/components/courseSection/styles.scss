@@ -1,19 +1,46 @@
 @import '../../config/styles/index.scss';
 
-.course-section-container {
+.course-section__container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
-    height: calc(100vh - #{10px + $header-height});
+    max-width: 100%;
+    min-height: calc(100vh - #{$header-height + 6 * $base-unit});
+    padding-top: 6 * $base-unit;
+    padding-left: 6 * $base-unit;
     background: $bg-primary-light;
 }
 
-.course-section-card {
-    display: flex;
+.course-section__column {
     flex-grow: 1;
-    flex-basis: 360px;
-    flex-wrap: wrap;
-    margin: 0 20px;
-    height: calc(100% - #{$header-height});
+    flex-direction: column;
+    flex-basis: 480px;
+    align-self: stretch;
+    height: calc(100vh - #{$header-height + 6 * $base-unit});
+}
+
+.course-section__column:nth-child(2) {
+    display: grid;
+    grid-auto-columns: 100%;
+    grid-template-rows: 40% 60%;
+}
+
+.course-section__card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 580px;
+    align-self: stretch;
+    margin-top: 0;
+    margin-left: 0;
+    height: calc(100% - #{6 * $base-unit});
+}
+
+.course-section__card--right {
+    flex: 1;
+    flex-direction: column;
+    align-self: stretch;
+    margin-left: 0;
+    height: auto;
 }

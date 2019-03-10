@@ -50,7 +50,6 @@ export class Header extends PureComponent {
             this.passwordRef.current.focus()
         else if (event && event.target && event.target.id === 'password')
             this.emailRef.current.focus()
-
     }
 
     _logout = () => {
@@ -82,7 +81,7 @@ export class Header extends PureComponent {
             open = Boolean(anchorEl),
             refs = {
                 emailRef: this.emailRef,
-                passwordRef: this.passwordRef
+                passwordRef: this.passwordRef,
             }
 
         return (
@@ -148,8 +147,13 @@ export class Header extends PureComponent {
                             </Button>
                         </div>
                     ) : (
-                            <LoginMenu login={login} loginError={loginError} ref={refs} handleClose={this._handleClose} />
-                        )}
+                        <LoginMenu
+                            login={login}
+                            loginError={loginError}
+                            ref={refs}
+                            handleClose={this._handleClose}
+                        />
+                    )}
                 </Menu>
             </div>
         )
@@ -160,5 +164,8 @@ const materialUIStyles = {
     headerButton: {
         color: 'white',
         backgroundColor: 'rgba(0,0,0,0.2)',
+        margin: 4,
+        marginLeft: 8,
+        marginRight: 8,
     },
 }

@@ -4,7 +4,7 @@ import { Card } from '../common/card/Card'
 import { getTitleFromRoute } from '../../util'
 import './styles.scss'
 
-class RouterlessCourseSection extends PureComponent {
+class CourseSectionBase extends PureComponent {
     state = {
         title: '',
     }
@@ -30,13 +30,21 @@ class RouterlessCourseSection extends PureComponent {
         const { title } = this.state
 
         return (
-            <div className="course-section-container">
-                <Card className="course-section-card">{title}</Card>
-                <Card className="course-section-card">{title}</Card>
-                <Card className="course-section-card">{title}</Card>
+            <div className="course-section__container">
+                <div className="course-section__column">
+                    <Card className="course-section__card">{title}</Card>
+                </div>
+                <div className="course-section__column">
+                    <Card className="course-section__card course-section__card--right">
+                        {title}
+                    </Card>
+                    <Card className="course-section__card course-section__card--right">
+                        {title}
+                    </Card>
+                </div>
             </div>
         )
     }
 }
 
-export const CourseSection = withRouter(RouterlessCourseSection)
+export const CourseSection = withRouter(CourseSectionBase)

@@ -8,10 +8,11 @@ import './styles.scss'
 
 export const EditTools = ({
     addItem,
-    toggleEdit,
-    edit,
-    saveChanges,
     cancelChanges,
+    edit,
+    placement,
+    saveChanges,
+    toggleEdit,
     style,
 }) => (
     <div className="edit-tools-absolute" style={{ style }}>
@@ -38,15 +39,17 @@ export const EditTools = ({
                         CANCEL
                         <CancelIcon style={{ marginLeft: 4 }} />
                     </Button>
-                    <Tooltip title="Add Item">
-                        <IconButton onClick={addItem}>
-                            <AddIcon />
-                        </IconButton>
-                    </Tooltip>
+                    {addItem && (
+                        <Tooltip title="Add Item">
+                            <IconButton onClick={addItem}>
+                                <AddIcon />
+                            </IconButton>
+                        </Tooltip>
+                    )}
                 </div>
             )}
             <div className={edit ? 'edit-tools__edit-button--fade-out' : ''}>
-                <Tooltip title="Edit">
+                <Tooltip title="Edit" placement={placement}>
                     <IconButton onClick={toggleEdit}>
                         <EditIcon />
                     </IconButton>

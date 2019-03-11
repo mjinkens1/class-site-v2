@@ -18,7 +18,7 @@ export class FilePreview extends PureComponent {
         return (
             <div className="course-section__file-preview">
                 <div className="course-section__file-preview__fullscreen-button">
-                    <Tooltip placement="bottom-end" title="Fullscreen">
+                    <Tooltip placement="bottom-start" title="Fullscreen">
                         <IconButton onClick={this._enterFullScreen}>
                             <FullScreen />
                         </IconButton>

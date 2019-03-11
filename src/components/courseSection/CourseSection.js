@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React, { Fragment, PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Typography } from '@material-ui/core'
+import Dropzone from 'react-dropzone'
 import { EditTools } from '../editTools/EditTools'
 import { Card } from '../common/card/Card'
 import { FilePreview } from './FilePreview'
@@ -9,13 +10,28 @@ import './styles.scss'
 
 class CourseSectionBase extends PureComponent {
     state = {
-        edit: false,
+        editFiles: false,
+        editLinks: false,
         files: [],
         selectedFile: {},
         title: '',
     }
 
+    _cancelFileChanges = () => {
+        this.setState(({ editFiles }) => ({ editFiles: !editFiles }))
+    }
+
+    _cancelLinkChanges = () => {
+        this.setState(({ editLinks }) => ({ editLinks: !editLinks }))
+    }
+
     _getSectionData = () => {}
+
+    _toggleEditFiles = () =>
+        this.setState(({ editFiles }) => ({ editFiles: !editFiles }))
+
+    _toggleEditLinks = () =>
+        this.setState(({ editLinks }) => ({ editLinks: !editLinks }))
 
     componentDidMount() {
         this._getSectionData()
@@ -23,7 +39,7 @@ class CourseSectionBase extends PureComponent {
 
     render() {
         const { user } = this.props
-        const { edit, files, selectedFile } = this.state
+        const { editFiles, editLinks, files, selectedFile } = this.state
         const { path, type } = selectedFile
 
         return (
@@ -33,11 +49,11 @@ class CourseSectionBase extends PureComponent {
                         {user && (
                             <div className="course-section__card__edit-tools">
                                 <EditTools
-                                    addItem={this._addItem}
-                                    toggleEdit={this._toggleEdit}
-                                    saveChanges={this._saveChanges}
-                                    cancelChanges={this._cancelChanges}
-                                    edit={edit}
+                                    cancelChanges={this._cancelFileChanges}
+                                    edit={editFiles}
+                                    placement="bottom-end"
+                                    saveChanges={this._saveFileChanges}
+                                    toggleEdit={this._toggleEditFiles}
                                 />
                             </div>
                         )}
@@ -49,6 +65,37 @@ class CourseSectionBase extends PureComponent {
                         >
                             Section Materials
                         </Typography>
+                        {user &&
+                            editFiles && (
+                                <Fragment>
+                                    <Typography
+                                        variant="display1"
+                                        align="left"
+                                        gutterBottom
+                                        style={{
+                                            fontSize: 16,
+                                            margin: 12,
+                                            marginLeft: 24,
+                                        }}
+                                    >
+                                        Drag and drop files, or click to add.
+                                    </Typography>
+                                    <Dropzone
+                                        onDrop={acceptedFiles =>
+                                            console.log(acceptedFiles)
+                                        }
+                                    >
+                                        {({ getRootProps, getInputProps }) => (
+                                            <div
+                                                className="course-section__dropzone"
+                                                {...getRootProps()}
+                                            >
+                                                <input {...getInputProps()} />
+                                            </div>
+                                        )}
+                                    </Dropzone>
+                                </Fragment>
+                            )}
                         {files.map(file => {
                             const icon = getFileIcon(file)
                             return console.log(icon)
@@ -56,15 +103,15 @@ class CourseSectionBase extends PureComponent {
                     </Card>
                 </div>
                 <div className="course-section__column">
-                    <Card className="course-section__card course-section__card--right">
+                    <Card className="course-section__card">
                         {user && (
                             <div className="course-section__card__edit-tools">
                                 <EditTools
-                                    addItem={this._addItem}
-                                    toggleEdit={this._toggleEdit}
-                                    saveChanges={this._saveChanges}
-                                    cancelChanges={this._cancelChanges}
-                                    edit={edit}
+                                    cancelChanges={this._cancelLinkChanges}
+                                    edit={editLinks}
+                                    placement="bottom-end"
+                                    saveChanges={this._saveLinkChanges}
+                                    toggleEdit={this._toggleEditLinks}
                                 />
                             </div>
                         )}
@@ -77,7 +124,7 @@ class CourseSectionBase extends PureComponent {
                             Links and Resources
                         </Typography>
                     </Card>
-                    <Card className="course-section__card course-section__card--right">
+                    <Card className="course-section__card">
                         <FilePreview path={path} type={type} />
                     </Card>
                 </div>

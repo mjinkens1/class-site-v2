@@ -51,7 +51,7 @@ class CourseSectionBase extends PureComponent {
                                 <EditTools
                                     cancelChanges={this._cancelFileChanges}
                                     edit={editFiles}
-                                    placement="bottom-end"
+                                    placement="bottom"
                                     saveChanges={this._saveFileChanges}
                                     toggleEdit={this._toggleEditFiles}
                                 />
@@ -109,7 +109,7 @@ class CourseSectionBase extends PureComponent {
                                 <EditTools
                                     cancelChanges={this._cancelLinkChanges}
                                     edit={editLinks}
-                                    placement="bottom-end"
+                                    placement="bottom"
                                     saveChanges={this._saveLinkChanges}
                                     toggleEdit={this._toggleEditLinks}
                                 />

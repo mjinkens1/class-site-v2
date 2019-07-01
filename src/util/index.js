@@ -1,3 +1,14 @@
+import isEqual from 'react-fast-compare'
+
+export const filesToArray = (files, history) => {
+    const filesObject = files[toKebabCase(history.location.pathname)]
+    const filesArray = filesObject ? Object.values(filesObject) : []
+
+    return filesArray
+}
+
+export const fromKebabCase = string => string.split('-').join(' ')
+
 export const getTitleFromRoute = routeName => {
     if (routeName === '/home' || routeName === '/404') return ''
 
@@ -18,7 +29,13 @@ export const getHeaderClass = routeName => {
     else return 'header--home'
 }
 
-export const getFileIcon = file => 'icon'
+export const getFileIcon = fileType => {
+    switch (fileType) {
+        default:
+            // https://materialdesignicons.com - file
+            return 'M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z'
+    }
+}
 
 export const mapWOD = wod => {
     const desc = wod.description[0].split(/[0-9]/)
@@ -48,3 +65,7 @@ export const getDayMonthYearFromDate = date =>
             return acc + val
         }, '')
         .toLowerCase()
+
+export const toKebabCase = string => string.split(' ').join('-')
+
+export { isEqual }

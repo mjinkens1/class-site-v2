@@ -9,16 +9,21 @@ import './styles.scss'
 export class Calendar extends PureComponent {
     state = {
         currentMonth: null,
-        calendarValue: null
+        calendarValue: null,
     }
 
-    _onActiveDateChange = ({ activeStartDate }) => console.log(getMonthAndYearFromDate(activeStartDate))
+    _onActiveDateChange = ({ activeStartDate }) =>
+        console.log(getMonthAndYearFromDate(activeStartDate))
 
     _onClickDay = date => {
         console.log(getDayMonthYearFromDate(date))
     }
 
-    _navigationLabel = ({ label }) => <Typography variant='h6' align='center' style={{ color: 'rgb(225, 59, 30)' }}>{label}</Typography>
+    _navigationLabel = ({ label }) => (
+        <Typography variant="h6" align="center" style={{ color: 'rgb(102, 153, 255)' }}>
+            {label}
+        </Typography>
+    )
 
     _tileContent = ({ date }) => {
         const { innerWidth, user } = this.props
@@ -31,7 +36,7 @@ export class Calendar extends PureComponent {
 
         this.setState({
             currentMonth,
-            calendarValue: new Date()
+            calendarValue: new Date(),
         })
     }
 

@@ -11,7 +11,7 @@ export default (state = intialState, action) => {
     const { type, payload } = action
 
     switch (type) {
-        case action.LOGIN: {
+        case actions.LOGIN: {
             return state.set('loggingIn', true)
         }
 

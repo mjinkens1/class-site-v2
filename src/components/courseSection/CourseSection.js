@@ -1,31 +1,74 @@
-import React, { Fragment, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Typography } from '@material-ui/core'
-import Dropzone from 'react-dropzone'
+import {
+    Card as MUICard,
+    CardActionArea,
+    CardContent,
+    CircularProgress,
+    Grid,
+    Tooltip,
+    Typography,
+} from '@material-ui/core'
 import { EditTools } from '../editTools/EditTools'
 import { Card } from '../common/card/Card'
 import { FilePreview } from './FilePreview'
-import { getFileIcon } from '../../util'
+import { FileUpload } from './FileUpload'
+import { filesToArray, isEqual, toKebabCase } from '../../util'
+import { styles } from '../../config/styles/'
 import './styles.scss'
 
 class CourseSectionBase extends PureComponent {
     state = {
+        addFiles: false,
+        currentFiles: {},
         editFiles: false,
         editLinks: false,
-        files: [],
+        filesToAdd: [],
         selectedFile: {},
         title: '',
     }
 
+    _addFiles = () => {
+        this.props.addFiles(
+            this.state.filesToAdd,
+            toKebabCase(this.props.history.location.pathname)
+        )
+    }
+
+    _addItem = () => {
+        this.setState({ addFiles: true })
+    }
+
     _cancelFileChanges = () => {
-        this.setState(({ editFiles }) => ({ editFiles: !editFiles }))
+        this.props.clearFilePreviews()
+        this.setState({ editFiles: false, filesToAdd: [] })
     }
 
     _cancelLinkChanges = () => {
         this.setState(({ editLinks }) => ({ editLinks: !editLinks }))
     }
 
-    _getSectionData = () => {}
+    _getFilePreviews = () => {
+        this.props.getFilePreviews(this.state.filesToAdd)
+        this.setState({ addFiles: false })
+    }
+
+    _getSectionData = () => {
+        this.props.getFiles(toKebabCase(this.props.history.location.pathname))
+    }
+
+    _onFileDrop = filesToAdd => {
+        this.setState({ filesToAdd })
+    }
+
+    _saveFileChanges = () => {
+        this.props.addFiles(
+            this.props.filePreviews,
+            toKebabCase(this.props.history.location.pathname)
+        )
+        this.props.clearFilePreviews()
+        this.setState({ editFiles: false, filesToAdd: [] })
+    }
 
     _toggleEditFiles = () =>
         this.setState(({ editFiles }) => ({ editFiles: !editFiles }))
@@ -37,26 +80,30 @@ class CourseSectionBase extends PureComponent {
         this._getSectionData()
     }
 
+    componentDidUpdate(prevProps) {
+        const { files, filePreviews } = this.props
+
+        if (!isEqual(prevProps.files, files)) {
+            this.setState({ currentFiles: files })
+        }
+    }
+
     render() {
-        const { user } = this.props
-        const { editFiles, editLinks, files, selectedFile } = this.state
+        const { files, filePreviews, history, user } = this.props
+        const {
+            addFiles,
+            editFiles,
+            editLinks,
+            filesToAdd,
+            selectedFile,
+        } = this.state
+        const filesArray = filesToArray(files, history)
         const { path, type } = selectedFile
 
         return (
             <div className="course-section__container">
                 <div className="course-section__column">
                     <Card className="course-section__card">
-                        {user && (
-                            <div className="course-section__card__edit-tools">
-                                <EditTools
-                                    cancelChanges={this._cancelFileChanges}
-                                    edit={editFiles}
-                                    placement="bottom"
-                                    saveChanges={this._saveFileChanges}
-                                    toggleEdit={this._toggleEditFiles}
-                                />
-                            </div>
-                        )}
                         <Typography
                             variant="display1"
                             align="left"
@@ -65,41 +112,86 @@ class CourseSectionBase extends PureComponent {
                         >
                             Section Materials
                         </Typography>
+                        {user && (
+                            <div className="course-section__card__edit-tools">
+                                <EditTools
+                                    addItem={this._addItem}
+                                    cancelChanges={this._cancelFileChanges}
+                                    edit={editFiles}
+                                    placement="bottom"
+                                    saveChanges={this._saveFileChanges}
+                                    toggleEdit={this._toggleEditFiles}
+                                />
+                            </div>
+                        )}
                         {user &&
                             editFiles && (
-                                <Fragment>
-                                    <Typography
-                                        variant="display1"
-                                        align="left"
-                                        gutterBottom
-                                        style={{
-                                            fontSize: 16,
-                                            margin: 12,
-                                            marginLeft: 24,
-                                        }}
-                                    >
-                                        Drag and drop files, or click to add.
-                                    </Typography>
-                                    <Dropzone
-                                        onDrop={acceptedFiles =>
-                                            console.log(acceptedFiles)
-                                        }
-                                    >
-                                        {({ getRootProps, getInputProps }) => (
-                                            <div
-                                                className="course-section__dropzone"
-                                                {...getRootProps()}
-                                            >
-                                                <input {...getInputProps()} />
-                                            </div>
-                                        )}
-                                    </Dropzone>
-                                </Fragment>
+                                <FileUpload
+                                    getFilePreviews={this._getFilePreviews}
+                                    open={addFiles}
+                                    handleClose={() => null}
+                                    onFileDrop={this._onFileDrop}
+                                    files={filesToAdd}
+                                />
                             )}
-                        {files.map(file => {
-                            const icon = getFileIcon(file)
-                            return console.log(icon)
-                        })}
+                        <Grid
+                            container
+                            spacing={32}
+                            style={{
+                                alignSelf: 'center',
+                                padding: styles.baseUnit,
+                            }}
+                        >
+                            {filesArray
+                                .concat(filePreviews)
+                                .map(({ name, preview, type }) => {
+                                    return (
+                                        <Grid item key={name}>
+                                            <Tooltip title={name}>
+                                                <MUICard
+                                                    style={{
+                                                        width: 140,
+                                                        height: 200,
+                                                    }}
+                                                >
+                                                    <CardActionArea>
+                                                        {preview ? (
+                                                            <object
+                                                                data={preview}
+                                                                height={150}
+                                                                width="100%"
+                                                            >
+                                                                File
+                                                            </object>
+                                                        ) : (
+                                                            <CircularProgress
+                                                                size={30}
+                                                                style={{
+                                                                    color:
+                                                                        styles.bgPrimaryDark,
+                                                                }}
+                                                            />
+                                                        )}
+                                                        <CardContent>
+                                                            <Typography
+                                                                noWrap
+                                                                style={{
+                                                                    fontSize: 10,
+                                                                }}
+                                                                variant="body2"
+                                                                color="textSecondary"
+                                                                component="p"
+                                                            >
+                                                                {name}
+                                                            </Typography>
+                                                        </CardContent>
+                                                    </CardActionArea>
+                                                </MUICard>
+                                            </Tooltip>
+                                        </Grid>
+                                    )
+                                })}
+                        </Grid>
                     </Card>
                 </div>
                 <div className="course-section__column">

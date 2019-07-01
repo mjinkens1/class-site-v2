@@ -1,4 +1,7 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+import 'firebase/storage'
 
 const config = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -11,16 +14,8 @@ const config = {
 
 firebase.initializeApp(config)
 
-export const firestore = firebase.firestore
-
 export const auth = firebase.auth()
 
 export const db = firebase.firestore()
 
-// export const messaging = firebase.messaging()
-
 export const storage = firebase.storage()
-
-const settings = { timestampsInSnapshots: true } //must be set to prevent errors from deprecation of the way firebase currently sets timestamps
-
-db.settings(settings)

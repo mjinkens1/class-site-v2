@@ -1,14 +1,27 @@
 import { connect } from 'react-redux'
 import { toJS } from '../toJS'
 import { CourseSection } from '../../components/courseSection/CourseSection'
+import {
+    addFiles,
+    getFiles,
+    getFilePreviews,
+    clearFilePreviews,
+} from '../../modules/storage/actions'
 
-const mapStateToProps = ({ authentication, database }) => ({
+const mapStateToProps = ({ authentication, storage }) => ({
     user: authentication.get('user'),
-    updatingDb: database.get('updatingDb'),
-    updateDbFailed: database.get('updateDbFailed'),
+    addingFile: storage.get('addingFile'),
+    gettingFiles: storage.get('gettingFiles'),
+    files: storage.get('files'),
+    filePreviews: storage.get('filePreviews'),
 })
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    addFiles,
+    getFiles,
+    getFilePreviews,
+    clearFilePreviews,
+}
 
 export default connect(
     mapStateToProps,

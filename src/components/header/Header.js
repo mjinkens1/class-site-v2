@@ -5,6 +5,7 @@ import { Button, IconButton, Menu, Typography } from '@material-ui/core'
 import { LoginMenu } from './LoginMenu'
 import { getHeaderClass, getTitleFromRoute } from '../../util'
 import { auth } from '../../config/firebase'
+import { styles } from '../../config/styles'
 import './styles.scss'
 
 export class Header extends PureComponent {
@@ -136,7 +137,7 @@ export class Header extends PureComponent {
                                     marginTop: 20,
                                     width: 220,
                                     color: 'white',
-                                    backgroundColor: 'rgb(225, 59, 30)',
+                                    backgroundColor: styles.bgPrimaryDark,
                                 }}
                                 variant="contained"
                                 className="login-menu-login-button"

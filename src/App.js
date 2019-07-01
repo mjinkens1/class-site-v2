@@ -10,12 +10,12 @@ import CourseSection from './containers/courseSection/CourseSection'
 import { PageNotFound } from './components/pageNotFound/PageNotFound'
 import './index.scss'
 
-export default class App extends PureComponent {
+export default class Appo extends PureComponent {
     state = {
         drawerOpen: false,
     }
 
-    _toggleDrawer = () => this.setState({ drawerOpen: !this.state.drawerOpen })
+    _toggleDrawer = () => this.setState(({ drawerOpen }) => ({ drawerOpen: !drawerOpen }))
 
     render() {
         const { drawerOpen } = this.state
@@ -25,16 +25,9 @@ export default class App extends PureComponent {
                 <BrowserRouter>
                     <Fragment>
                         <Header toggleDrawer={this._toggleDrawer} />
-                        <SideDrawer
-                            open={drawerOpen}
-                            toggleDrawer={this._toggleDrawer}
-                        />
+                        <SideDrawer open={drawerOpen} toggleDrawer={this._toggleDrawer} />
                         <Switch>
-                            <Route
-                                exact
-                                path="/syllabus"
-                                component={Syllabus}
-                            />
+                            <Route exact path="/syllabus" component={Syllabus} />
                             <Route exact path="/home" component={Home} />
                             <Route
                                 exact
@@ -46,16 +39,8 @@ export default class App extends PureComponent {
                                 path="/organization of societies"
                                 component={CourseSection}
                             />
-                            <Route
-                                exact
-                                path="/regional interactions"
-                                component={CourseSection}
-                            />
-                            <Route
-                                exact
-                                path="/global interactions"
-                                component={CourseSection}
-                            />
+                            <Route exact path="/regional interactions" component={CourseSection} />
+                            <Route exact path="/global interactions" component={CourseSection} />
                             <Route
                                 exact
                                 path="/industrialization & integration"

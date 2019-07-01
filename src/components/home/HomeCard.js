@@ -13,6 +13,7 @@ import {
 import draftToHtml from 'draftjs-to-html'
 import { db } from '../../config/firebase'
 import uniqueId from 'lodash/uniqueId'
+import { styles } from '../../config/styles'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import './styles.scss'
 
@@ -20,7 +21,7 @@ export class HomeCard extends PureComponent {
     state = {
         edit: false,
         dataList: [],
-        itemTitle: ''
+        itemTitle: '',
     }
 
     _toggleEdit = () => this.setState({ edit: !this.state.edit })
@@ -67,7 +68,10 @@ export class HomeCard extends PureComponent {
         this.setState({
             showEditor: true,
             idToEdit: id,
-            itemTitle: this.state.dataList.find(item => item._id === id || item.localId === id).title || ''
+            itemTitle:
+                this.state.dataList.find(
+                    item => item._id === id || item.localId === id
+                ).title || '',
         })
     }
 
@@ -138,8 +142,7 @@ export class HomeCard extends PureComponent {
             this.setState({
                 editorState: EditorState.createEmpty(),
             })
-        }
-        else
+        } else
             this.setState({
                 dataList: data
                     .map(item => ({
@@ -168,10 +171,20 @@ export class HomeCard extends PureComponent {
 
     render() {
         const { icon, title, reverse, user, data, itemAvatar } = this.props,
-            { dataList, edit, showEditor, editorState, itemTitle, inputError } = this.state
+            {
+                dataList,
+                edit,
+                showEditor,
+                editorState,
+                itemTitle,
+                inputError,
+            } = this.state
 
         return (
-            <Card id={title} className={`card ${reverse ? 'card-reverse' : ''}`}>
+            <Card
+                id={title}
+                className={`card ${reverse ? 'card-reverse' : ''}`}
+            >
                 <div className="card-body">
                     {user && (
                         <EditTools
@@ -183,17 +196,18 @@ export class HomeCard extends PureComponent {
                         />
                     )}
 
-                    {user && showEditor && (
-                        <FloatingEditor
-                            closeEditor={this._closeEditor}
-                            showEditor={showEditor}
-                            editorState={editorState}
-                            onEditorStateChange={this._onEditorStateChange}
-                            onTextChange={this._onInputTextChange}
-                            title={itemTitle}
-                            inputError={inputError}
-                        />
-                    )}
+                    {user &&
+                        showEditor && (
+                            <FloatingEditor
+                                closeEditor={this._closeEditor}
+                                showEditor={showEditor}
+                                editorState={editorState}
+                                onEditorStateChange={this._onEditorStateChange}
+                                onTextChange={this._onInputTextChange}
+                                title={itemTitle}
+                                inputError={inputError}
+                            />
+                        )}
 
                     {data ? (
                         <div className="card-data">
@@ -218,13 +232,13 @@ export class HomeCard extends PureComponent {
                             </List>
                         </div>
                     ) : (
-                            <div className="home-card__progress">
-                                <CircularProgress
-                                    size={30}
-                                    style={{ color: 'red' }}
-                                />
-                            </div>
-                        )}
+                        <div className="home-card__progress">
+                            <CircularProgress
+                                size={30}
+                                style={{ color: styles.bgPrimary }}
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className="card-info">
                     {icon}

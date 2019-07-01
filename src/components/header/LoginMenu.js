@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import TextField from '@material-ui/core/TextField'
 import { Button, IconButton, Typography } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
+import { styles } from '../../config/styles'
 class LoginMenuBase extends PureComponent {
     state = {
         email: '',
@@ -33,7 +34,7 @@ class LoginMenuBase extends PureComponent {
 
         return (
             <div>
-                <div className='login-menu__close-icon--wrapper'>
+                <div className="login-menu__close-icon--wrapper">
                     <IconButton
                         color="inherit"
                         aria-label="Menu"
@@ -45,7 +46,11 @@ class LoginMenuBase extends PureComponent {
                 <Typography variant="h6" align="center">
                     Login
                 </Typography>
-                <form className="login-menu__form" noValidate onSubmit={this._onSubmit}>
+                <form
+                    className="login-menu__form"
+                    noValidate
+                    onSubmit={this._onSubmit}
+                >
                     <TextField
                         id="email"
                         label="Email"
@@ -71,7 +76,10 @@ class LoginMenuBase extends PureComponent {
                         margin="normal"
                     />
 
-                    <Typography align="center" style={{ height: 20, color: 'red' }}>
+                    <Typography
+                        align="center"
+                        style={{ height: 20, color: 'red' }}
+                    >
                         {loginError}
                     </Typography>
 
@@ -80,21 +88,21 @@ class LoginMenuBase extends PureComponent {
                             marginTop: 20,
                             width: '100%',
                             color: 'white',
-                            backgroundColor: 'rgb(225, 59, 30)',
+                            backgroundColor: styles.bgPrimaryDark,
                         }}
-                        type='submit'
+                        type="submit"
                         variant="contained"
                         className="login-menu-login-button"
                         onClick={this._login}
                     >
                         LOGIN
-                </Button>
+                    </Button>
                 </form>
             </div>
         )
     }
 }
 
-export const LoginMenu = React.forwardRef((props, ref) =>
+export const LoginMenu = React.forwardRef((props, ref) => (
     <LoginMenuBase innerRefs={ref} {...props} />
-)
+))

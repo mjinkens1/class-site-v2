@@ -16,18 +16,17 @@ export class Home extends PureComponent {
     state = {
         open: false,
         innerWidth: null,
-        innerHeight: null
+        innerHeight: null,
     }
 
     _onScroll = () => {
         const scrollTop =
-            window.scrollY ||
-            window.scrollTop ||
-            document.getElementsByTagName('html')[0].scrollTop,
+                window.scrollY ||
+                window.scrollTop ||
+                document.getElementsByTagName('html')[0].scrollTop,
             image = document.querySelector('.main-img')
 
-        image.style.backgroundPosition = `35vw calc(-25vh - ${scrollTop *
-            0.7}px)`
+        image.style.backgroundPosition = `10vw calc(-2vh - ${scrollTop * 0.7}px)`
     }
 
     _onResize = () => {
@@ -71,16 +70,16 @@ export class Home extends PureComponent {
 
     render() {
         const {
-            getRSSVideo,
-            rssVideo,
-            user,
-            getDocsFromDb,
-            updateDb,
-            announcementsData,
-            parentsData,
-            otherData,
-            rssWOD
-        } = this.props,
+                getRSSVideo,
+                rssVideo,
+                user,
+                getDocsFromDb,
+                updateDb,
+                announcementsData,
+                parentsData,
+                otherData,
+                rssWOD,
+            } = this.props,
             { open, innerWidth } = this.state
 
         return (
@@ -128,10 +127,7 @@ export class Home extends PureComponent {
                     <div className="lower-container">
                         <div className="column">
                             <Calendar innerWidth={innerWidth} user={user} />
-                            <RSSVideo
-                                getRSSVideo={getRSSVideo}
-                                rssVideo={rssVideo}
-                            />
+                            <RSSVideo getRSSVideo={getRSSVideo} rssVideo={rssVideo} />
                         </div>
                         <div className="column">
                             <HomeCard

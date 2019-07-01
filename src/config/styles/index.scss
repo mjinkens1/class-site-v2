@@ -1,8 +1,8 @@
 $base_unit: 4px;
 
 $bg-primary-light: hsl(0, 0%, 96%);
-$bg-primary-dark: rgb(225, 59, 30);
-$bg-primary-dark-2: #e19d1e; //#c85743;
+$bg-primary-dark: rgb(102, 153, 255); // rgb(225, 59, 30);
+$bg-primary-dark-2: rgb(255, 102, 255); // #e19d1e; //#c85743;
 
 $bg-secondary-light: #616161;
 $bg-secondary-dark: #373737;
@@ -16,7 +16,7 @@ $bg-error-1: rgb(223, 167, 102);
 $bg-error-2: rgb(188, 121, 67);
 $bg-error-3: rgb(194, 152, 101);
 
-$text-secondary-dark: rgb(225, 59, 30);
+$text-secondary-dark: rgb(102, 153, 255); // rgb(225, 59, 30);
 
 $shadow-primary: 0 2px 5px gray;
 
@@ -24,3 +24,32 @@ $display-font: 'Monoton', cursive;
 $primary-font: 'Roboto', sans-serif;
 
 $header-height: 14 * $base-unit;
+
+:export {
+    baseUnit: $base_unit;
+
+    bgPrimaryLight: $bg-primary-light;
+    bgPrimaryDark: $bg-primary-dark;
+    bgPrimaryDark2: $bg-primary-dark-2;
+
+    bgSecondaryLight: $bg-secondary-light;
+    bgSecondaryDark: $bg-secondary-dark;
+
+    bgEmphasis: $bg-emphasis;
+
+    textPrimaryDark: $text-primary-dark;
+    textPrimaryLight: $text-primary-light;
+
+    bgError1: $bg-error-1;
+    bgError2: $bg-error-2;
+    bgError3: $bg-error-3;
+
+    textSecondaryDark: $text-secondary-dark;
+
+    shadowPrimary: $shadow-primary;
+
+    displayFont: $display-font;
+    primaryFont: $primary-font;
+
+    headerHeight: $header-height;
+}

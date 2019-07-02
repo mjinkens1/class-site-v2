@@ -1,4 +1,4 @@
-import { put, takeLatest, all, call, select } from 'redux-saga/effects'
+import { put, takeLatest, all, call } from 'redux-saga/effects'
 import {
     actions,
     addFilesSuccess,
@@ -47,15 +47,9 @@ function* addFiles(action) {
 
             yield call([storageRef, storageRef.put], file, { customMetadata })
 
-            const downloadUrl = yield call([
-                storageRef,
-                storageRef.getDownloadURL,
-            ])
-
             update[file.name] = {
                 name: file.name,
                 type: file.type,
-                downloadUrl,
                 preview,
             }
         }
@@ -83,7 +77,6 @@ function* getFiles(action) {
         for (let i = 0; i < fileRefs.length; ++i) {
             const ref = fileRefs[i]
 
-            const downloadUrl = yield call([ref, ref.getDownloadURL])
             const { customMetadata, name, type } = yield call([
                 ref,
                 ref.getMetadata,
@@ -91,7 +84,6 @@ function* getFiles(action) {
 
             files[name] = {
                 ...customMetadata,
-                downloadUrl,
                 name,
                 type,
             }

@@ -1,20 +1,12 @@
 import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
-import {
-    Card as MUICard,
-    CardActionArea,
-    CardContent,
-    CircularProgress,
-    Grid,
-    Tooltip,
-    Typography,
-} from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { EditTools } from '../editTools/EditTools'
 import { Card } from '../common/card/Card'
 import { FilePreview } from './FilePreview'
 import { FileUpload } from './FileUpload'
+import { FileGrid } from './FileGrid'
 import { filesToArray, isEqual, toKebabCase } from '../../util'
-import { styles } from '../../config/styles/'
 import './styles.scss'
 
 class CourseSectionBase extends PureComponent {
@@ -24,7 +16,8 @@ class CourseSectionBase extends PureComponent {
         editFiles: false,
         editLinks: false,
         filesToAdd: [],
-        selectedFile: {},
+        selectedForPreview: {},
+        selectedForDelete: [],
         title: '',
     }
 
@@ -41,7 +34,11 @@ class CourseSectionBase extends PureComponent {
 
     _cancelFileChanges = () => {
         this.props.clearFilePreviews()
-        this.setState({ editFiles: false, filesToAdd: [] })
+        this.setState({
+            editFiles: false,
+            filesToAdd: [],
+            selectedForDelete: [],
+        })
     }
 
     _cancelLinkChanges = () => {
@@ -62,12 +59,41 @@ class CourseSectionBase extends PureComponent {
     }
 
     _saveFileChanges = () => {
-        this.props.addFiles(
-            this.props.filePreviews,
-            toKebabCase(this.props.history.location.pathname)
-        )
+        if (this.state.filesToAdd.length > 0) {
+            this.props.addFiles(
+                this.props.filePreviews,
+                toKebabCase(this.props.history.location.pathname)
+            )
+        }
+
+        if (this.state.selectedForDelete.length > 0) {
+            this.props.deleteFiles(this.state.selectedForDelete)
+        }
+
         this.props.clearFilePreviews()
-        this.setState({ editFiles: false, filesToAdd: [] })
+        this.setState({
+            editFiles: false,
+            filesToAdd: [],
+            selectedForDelete: [],
+        })
+    }
+
+    _selectForDelete = (name, undo) => {
+        if (undo) {
+            this.setState(({ selectedForDelete }) => ({
+                selectedForDelete: selectedForDelete.filter(
+                    selected => selected !== name
+                ),
+            }))
+        } else {
+            this.setState(({ selectedForDelete }) => ({
+                selectedForDelete: selectedForDelete.concat(name),
+            }))
+        }
+    }
+
+    _selectForPreview = (name, preview) => {
+        this.setState({ selectedForPreview: { name, preview } })
     }
 
     _toggleEditFiles = () =>
@@ -81,7 +107,7 @@ class CourseSectionBase extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        const { files, filePreviews } = this.props
+        const { files } = this.props
 
         if (!isEqual(prevProps.files, files)) {
             this.setState({ currentFiles: files })
@@ -95,10 +121,11 @@ class CourseSectionBase extends PureComponent {
             editFiles,
             editLinks,
             filesToAdd,
-            selectedFile,
+            selectedForPreview,
+            selectedForDelete,
         } = this.state
         const filesArray = filesToArray(files, history)
-        const { path, type } = selectedFile
+        const { path, type } = selectedForPreview
 
         return (
             <div className="course-section__container">
@@ -134,64 +161,14 @@ class CourseSectionBase extends PureComponent {
                                     files={filesToAdd}
                                 />
                             )}
-                        <Grid
-                            container
-                            spacing={32}
-                            style={{
-                                alignSelf: 'center',
-                                padding: styles.baseUnit,
-                            }}
-                        >
-                            {filesArray
-                                .concat(filePreviews)
-                                .map(({ name, preview, type }) => {
-                                    return (
-                                        <Grid item key={name}>
-                                            <Tooltip title={name}>
-                                                <MUICard
-                                                    style={{
-                                                        width: 140,
-                                                        height: 200,
-                                                    }}
-                                                >
-                                                    <CardActionArea>
-                                                        {preview ? (
-                                                            <object
-                                                                data={preview}
-                                                                height={150}
-                                                                width="100%"
-                                                            >
-                                                                File
-                                                            </object>
-                                                        ) : (
-                                                            <CircularProgress
-                                                                size={30}
-                                                                style={{
-                                                                    color:
-                                                                        styles.bgPrimaryDark,
-                                                                }}
-                                                            />
-                                                        )}
-                                                        <CardContent>
-                                                            <Typography
-                                                                noWrap
-                                                                style={{
-                                                                    fontSize: 10,
-                                                                }}
-                                                                variant="body2"
-                                                                color="textSecondary"
-                                                                component="p"
-                                                            >
-                                                                {name}
-                                                            </Typography>
-                                                        </CardContent>
-                                                    </CardActionArea>
-                                                </MUICard>
-                                            </Tooltip>
-                                        </Grid>
-                                    )
-                                })}
-                        </Grid>
+                        <FileGrid
+                            edit={editFiles}
+                            filesArray={filesArray}
+                            filePreviews={filePreviews}
+                            selectForDelete={this._selectForDelete}
+                            selectedForDelete={selectedForDelete}
+                            selectForPreview={this._selectForPreview}
+                        />
                     </Card>
                 </div>
                 <div className="course-section__column">
@@ -217,7 +194,7 @@ class CourseSectionBase extends PureComponent {
                         </Typography>
                     </Card>
                     <Card className="course-section__card">
-                        <FilePreview path={path} type={type} />
+                        <FilePreview selectedForPreview={selectedForPreview} />
                     </Card>
                 </div>
             </div>

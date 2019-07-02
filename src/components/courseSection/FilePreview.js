@@ -10,10 +10,9 @@ export class FilePreview extends PureComponent {
 
     _enterFullScreen = () => null
 
-    _onError = () => this.setState({ showError: true })
-
     render() {
-        const { path, type } = this.props
+        const { selectedForPreview } = this.props
+        const { name, preview } = selectedForPreview
 
         return (
             <div className="course-section__file-preview">
@@ -24,11 +23,14 @@ export class FilePreview extends PureComponent {
                         </IconButton>
                     </Tooltip>
                 </div>
-                {path && type ? (
-                    <FileViewer
-                        fileType={type}
-                        filePath={path}
-                        onError={this._onError}
+                {preview ? (
+                    <object
+                        key={preview}
+                        width="auto"
+                        height="100%"
+                        data={preview}
+                        name={name}
+                        aria-label="File Preview"
                     />
                 ) : (
                     <div className="course-section__file-preview--default">

@@ -13,10 +13,29 @@ import { db } from '../../config/firebase'
 import { toKebabCase } from '../../util'
 import './styles.scss'
 
+const TileContent = ({ calendarData, date, selectedTile, updateDb, user }) => {
+    const dateComponents = date.toString().split(' ')
+    const dateCollection = toKebabCase(
+        `${dateComponents[1]} ${dateComponents[3]}`
+    )
+
+    return (
+        <CalendarTile
+            calendarData={calendarData}
+            date={date}
+            dateCollection={dateCollection}
+            selectedTile={selectedTile}
+            updateDb={updateDb}
+            user={user}
+        />
+    )
+}
+
 export class Calendar extends PureComponent {
     state = {
         dateString: '',
         tileItems: [],
+        selectedTile: null,
         showExpanded: false,
         currentMonth: null,
         calendarValue: null,
@@ -31,6 +50,7 @@ export class Calendar extends PureComponent {
 
         this.setState({
             dateString,
+            selectedTile: dateString,
             tileItems: this.props.calendarData[toKebabCase(dateString)],
             showExpanded: true,
         })
@@ -54,24 +74,6 @@ export class Calendar extends PureComponent {
         }
     }
 
-    _tileContent = ({ date }) => {
-        const { calendarData, updateDb, user } = this.props
-        const dateComponents = date.toString().split(' ')
-        const dateCollection = toKebabCase(
-            `${dateComponents[1]} ${dateComponents[3]}`
-        )
-
-        return (
-            <CalendarTile
-                calendarData={calendarData}
-                date={date}
-                dateCollection={dateCollection}
-                updateDb={updateDb}
-                user={user}
-            />
-        )
-    }
-
     componentDidMount() {
         const calendarRef = db.collection('data').doc('calendar')
 
@@ -79,8 +81,14 @@ export class Calendar extends PureComponent {
     }
 
     render() {
-        const { calendarData, user } = this.props
-        const { calendarValue, tileItems, showExpanded } = this.state
+        const { calendarData, updateDb, user } = this.props
+        const {
+            calendarValue,
+            dateString,
+            tileItems,
+            selectedTile,
+            showExpanded,
+        } = this.state
 
         return (
             <div className="calendar-wrapper">
@@ -93,14 +101,13 @@ export class Calendar extends PureComponent {
                     id="calendar-tile-expand-portal"
                 >
                     <CalendarTileExpanded
+                        dateString={dateString}
                         tileItems={tileItems}
                         showExpanded={showExpanded}
                         setShowExpanded={this._showExpanded}
                     />
                 </div>
                 <CalendarComponent
-                    user={user}
-                    key={calendarData}
                     className="calendar"
                     minDetail="month"
                     navigationLabel={this._navigationLabel}
@@ -108,7 +115,15 @@ export class Calendar extends PureComponent {
                     next2Label={<LastPage />}
                     prevLabel={<ChevronLeft />}
                     prev2Label={<FirstPage />}
-                    tileContent={this._tileContent}
+                    tileContent={({ date }) => (
+                        <TileContent
+                            calendarData={calendarData}
+                            date={date}
+                            selectedTile={selectedTile}
+                            updateDb={updateDb}
+                            user={user}
+                        />
+                    )}
                     onClickDay={this._onClickDay}
                     value={calendarValue}
                 />

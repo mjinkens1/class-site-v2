@@ -153,6 +153,7 @@
     justify-content: center;
     align-items: center;
     min-width: 40 * $base-unit;
+    max-width: 100%;
     padding: 4 * $base-unit;
     background: $bg-emphasis;
     border-radius: 0 $base-unit $base-unit 0;
@@ -277,8 +278,6 @@
     .card-info {
         flex-direction: row;
         flex-grow: 1;
-        max-width: calc(100vw - #{12 * $base-unit});
-        width: 100%;
     }
 
     .card-title {

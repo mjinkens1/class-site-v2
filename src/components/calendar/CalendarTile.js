@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CalendarChip } from './CalendarChip'
 import { IconButton, Tooltip } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Create'
@@ -10,11 +10,15 @@ export const CalendarTile = ({
     date,
     dateCollection,
     getDocsFromDb,
+    selectedTile,
     updateDb,
     user,
 }) => {
     const [showEditor, setShowEditor] = useState(false)
     const [tileItems, setTileItems] = useState([])
+
+    const tileRef = useRef()
+    const siblingRef = useRef()
 
     const dateString = date
         .toString()
@@ -30,8 +34,17 @@ export const CalendarTile = ({
         }
     }, [calendarData])
 
+    useEffect(() => {
+        siblingRef.current = tileRef.current.previousSibling
+
+        if (tileItems && tileItems.length > 0) {
+            siblingRef.current.style.color =
+                selectedTile === dateString ? '#ffffff' : 'rgb(102, 153, 255)'
+        }
+    }, [selectedTile, tileItems])
+
     return (
-        <div className="tile">
+        <div ref={tileRef} className="tile">
             {user && (
                 <div className="calendar__tile__edit">
                     <div>

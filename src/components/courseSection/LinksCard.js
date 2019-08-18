@@ -13,7 +13,6 @@ import {
 import draftToHtml from 'draftjs-to-html'
 import { db } from '../../config/firebase'
 import uniqueId from 'lodash/uniqueId'
-import { styles } from '../../config/styles'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import './styles.scss'
 import { toKebabCase } from '../../util'

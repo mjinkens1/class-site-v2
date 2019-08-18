@@ -66,10 +66,20 @@
     height: 5 * $base-unit;
     margin: $base-unit;
     padding: 0 2 * $base-unit;
+    font-family: Roboto, sans-serif;
     color: $text-primary-light;
-    font-size: 9px;
+    font-size: 10px;
     background: $bg-primary-dark;
     border-radius: 2.5 * $base-unit;
+
+    &--large {
+        @extend .calendar__chip;
+        height: auto;
+        padding: 2 * $base-unit;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 3.5 * $base-unit;
+    }
 }
 
 .calendar__chip__title {
@@ -77,18 +87,6 @@
     white-space: nowrap; /*keep text on one line */
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.calendar__chip__count {
-    position: absolute;
-    top: -$base-unit / 2;
-    right: -$base-unit / 2;
-    width: 4 * $base-unit;
-    height: 4 * $base-unit;
-    margin: $base-unit;
-    color: $text-secondary-dark;
-    background: $bg-primary-light;
-    border-radius: 50%;
 }
 
 .calendar__chip__count--center-text {
@@ -220,7 +218,7 @@
 
     &--expand {
         @extend .calendar-editor-close;
-        margin: 0;
+        margin: -20px -5px 0 0;
     }
 }
 

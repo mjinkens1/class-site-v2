@@ -10,7 +10,6 @@ export const CalendarTile = ({
     date,
     dateCollection,
     getDocsFromDb,
-    innerWidth,
     updateDb,
     user,
 }) => {

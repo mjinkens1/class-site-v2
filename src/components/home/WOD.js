@@ -56,7 +56,10 @@ export const WOD = ({ icon, title, reverse, data }) => {
                     </div>
                 ) : (
                     <div className="home-card__progress">
-                        <CircularProgress size={30} style={{ color: 'red' }} />
+                        <CircularProgress
+                            size={30}
+                            style={{ color: 'rgb(102, 153, 255)' }}
+                        />
                     </div>
                 )}
             </div>

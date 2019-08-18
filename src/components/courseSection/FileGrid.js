@@ -13,7 +13,10 @@ export const FileGrid = ({
 }) => {
     return gettingFiles ? (
         <div className="course-section__loader">
-            <CircularProgress size={30} />
+            <CircularProgress
+                size={30}
+                style={{ color: 'rgb(102, 153, 255)' }}
+            />
         </div>
     ) : (
         <Grid

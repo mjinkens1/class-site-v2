@@ -8,6 +8,7 @@ export class Syllabus extends PureComponent {
     }
 
     _onLoad = () => this.setState({ loaded: true })
+
     render() {
         const { loaded } = this.state
 

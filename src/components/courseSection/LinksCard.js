@@ -253,7 +253,7 @@ export class LinksCard extends PureComponent {
                         <div className="home-card__progress">
                             <CircularProgress
                                 size={30}
-                                style={{ color: styles.bgPrimary }}
+                                style={{ color: 'rgb(102, 153, 255)' }}
                             />
                         </div>
                     )}

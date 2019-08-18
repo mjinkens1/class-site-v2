@@ -12,17 +12,21 @@ import HomeIcon from '@material-ui/icons/Home'
 import SubjectIcon from '@material-ui/icons/Subject'
 import TerrainIcon from '@material-ui/icons/Terrain'
 import PeopleIcon from '@material-ui/icons/People'
-import PlaceIcon from '@material-ui/icons/Place'
+import StarIcon from '@material-ui/icons/Star'
+import FlagIcon from '@material-ui/icons/Flag'
+import BoatIcon from '@material-ui/icons/DirectionsBoat'
 import WorldIcon from '@material-ui/icons/Public'
-import GearsIcon from '@material-ui/icons/Settings'
-import ChangeIcon from '@material-ui/icons/TrendingUp'
+import TrainIcon from '@material-ui/icons/Train'
+import WarningIcon from '@material-ui/icons/Warning'
 import AssignmentIcon from '@material-ui/icons/Assignment'
 import ScoreIcon from '@material-ui/icons/Score'
 import EmailIcon from '@material-ui/icons/Email'
+import MergeIcon from '@material-ui/icons/MergeType'
 import { contactEmail } from '../../constants'
+import { toKebabCase } from '../../util'
 import './styles.scss'
 
-const sideListItems = [
+export const sideListItems = [
     [
         {
             icon: <HomeIcon style={{ color: 'red' }} />,
@@ -35,28 +39,40 @@ const sideListItems = [
     ],
     [
         {
-            icon: <TerrainIcon style={{ color: 'green' }} />,
-            text: '1. Technology & Environment',
+            icon: <WorldIcon style={{ color: 'blue' }} />,
+            text: '1. The Global Tapestry',
         },
         {
             icon: <PeopleIcon style={{ color: 'orange' }} />,
-            text: '2. Organization of Societies',
+            text: '2. Networks of Exchange',
         },
         {
-            icon: <PlaceIcon style={{ color: 'red' }} />,
-            text: '3. Regional Interactions',
+            icon: <TerrainIcon style={{ color: 'green' }} />, //<PlaceIcon style={{ color: 'red' }} />,
+            text: '3. Land Based Empires',
         },
         {
-            icon: <WorldIcon style={{ color: 'blue' }} />,
-            text: '4. Global Interactions',
+            icon: <BoatIcon style={{ color: 'blue' }} />,
+            text: '4. Trans Oceanic Interconnections',
         },
         {
-            icon: <GearsIcon style={{ color: 'grey' }} />,
-            text: '5. Industrialization & Integration',
+            icon: <FlagIcon style={{ color: 'red' }} />,
+            text: '5. Revolutions',
         },
         {
-            icon: <ChangeIcon style={{ color: 'purple' }} />,
-            text: '6. Accelerating Global Change',
+            icon: <TrainIcon style={{ color: 'gray' }} />,
+            text: '6. Consequences of Industrialization',
+        },
+        {
+            icon: <WarningIcon style={{ color: 'orange' }} />,
+            text: '7. Global Conflict',
+        },
+        {
+            icon: <StarIcon style={{ color: 'red' }} />,
+            text: '8. Cold War & Decolinization',
+        },
+        {
+            icon: <MergeIcon style={{ color: 'green' }} />,
+            text: '9. Globalization',
         },
     ],
     [
@@ -114,7 +130,7 @@ class SideDrawerBase extends PureComponent {
                             {sideListItems[0].map(item => (
                                 <Link
                                     key={item.text}
-                                    to={`/${item.text.toLowerCase()}`}
+                                    to={`/${toKebabCase(item.text)}`}
                                 >
                                     <ListItem button onClick={toggleDrawer}>
                                         <ListItemIcon>{item.icon}</ListItemIcon>
@@ -126,9 +142,9 @@ class SideDrawerBase extends PureComponent {
                             {sideListItems[1].map(item => (
                                 <Link
                                     key={item.text}
-                                    to={`/${item.text
-                                        .toLowerCase()
-                                        .replace(/[^a-z].\s/, '')}`}
+                                    to={`/${toKebabCase(
+                                        item.text.split('.')[1].trim()
+                                    )}`}
                                 >
                                     <ListItem button onClick={toggleDrawer}>
                                         <ListItemIcon>{item.icon}</ListItemIcon>

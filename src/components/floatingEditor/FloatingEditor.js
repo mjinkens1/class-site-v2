@@ -8,12 +8,20 @@ import './styles.scss'
 
 export class FloatingEditor extends PureComponent {
     render() {
-        const { closeEditor, editorState, onEditorStateChange, onTextChange, inputError, title } = this.props
+        const {
+            closeEditor,
+            editorState,
+            onEditorStateChange,
+            onTextChange,
+            inputError,
+            title,
+            style,
+        } = this.props
 
         return (
-            <div className="floating-editor">
+            <div className="floating-editor" style={style}>
                 <div className="floating-editor__close">
-                    <div className='floating-editor__input-wrapper'>
+                    <div className="floating-editor__input-wrapper">
                         <TextField
                             id="title"
                             label="Title"

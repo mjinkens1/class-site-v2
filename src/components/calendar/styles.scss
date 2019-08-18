@@ -1,8 +1,14 @@
 @import '../../config/styles/index.scss';
 
+.calendar-wrapper {
+    grid-area: calendar;
+    position: relative;
+}
+
 .calendar {
-    width: calc(100% - #{12 * $base-unit});
-    margin: 6 * $base-unit;
+    width: 100%;
+    // height: 100%;
+    min-height: 654px;
     padding-bottom: 12px;
     border: none;
     border-radius: $base-unit;
@@ -10,7 +16,7 @@
 }
 
 .tile {
-    // position: relative;
+    position: relative;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -31,15 +37,20 @@
     background: white;
 }
 
-.react-calendar__tile--active, 
-.react-calendar__tile--active:enabled:hover, 
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-    background: $bg-primary-dark
+    background: $bg-primary-dark;
+    overflow: visible;
 }
 
 .react-calendar button:enabled:hover {
     transform: scale(1.1);
     transition: transform 0.15s;
+}
+
+.react-calendar__tile .react-calendar__month-view__days__day {
+    overflow: visible;
 }
 
 .calendar__chip {
@@ -58,8 +69,8 @@
 
 .calendar__chip__title {
     max-width: calc(100% - #{3 * $base-unit});
-    white-space: nowrap;      /*keep text on one line */
-    overflow: hidden; 
+    white-space: nowrap; /*keep text on one line */
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -92,9 +103,89 @@
 
 .react-calendar button:enabled:hover .calendar__tile__edit {
     display: flex;
+    z-index: 1000;
 }
 
-@media only screen and (max-width: 414px) {
+.calendar-editor-portal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: $base-unit;
+}
+
+.calendar-tile-editor-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    pointer-events: all;
+    border-radius: $base-unit;
+}
+
+.calendar-tile-editor {
+    display: grid;
+    grid-template-areas:
+        'edit-tools'
+        'input';
+
+    padding: 6 * $base-unit;
+    overflow: hidden;
+
+    &--expand {
+        @extend .calendar-tile-editor;
+        margin: 3 * $base-unit $base-unit;
+        padding-top: 20px;
+    }
+}
+
+.calendar-editor-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: $base-unit;
+    background-color: #ffffff;
+    border-radius: 50%;
+
+    &--expand {
+        @extend .calendar-editor-close;
+        margin: 0;
+    }
+}
+
+.tile-editor-date {
+    display: flex;
+}
+
+.edit-calendar-chips {
+    margin-top: 10px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-row-gap: 5px;
+}
+
+@media screen and (max-width: 1535px) {
+    .calendar {
+        min-height: auto;
+    }
+    .tile {
+        min-height: 30 * $base-unit;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .tile {
+        min-height: 20 * $base-unit;
+    }
+}
+
+@media only screen and (max-width: 568px) {
     .calendar {
         width: calc(100% - #{2 * $base-unit});
         margin: 3 * $base-unit $base-unit;

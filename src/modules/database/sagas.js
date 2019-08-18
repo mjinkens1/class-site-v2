@@ -9,12 +9,18 @@ import {
 import { db } from '../../config/firebase'
 
 function* getDocsFromDb(action) {
-    const { ref, target } = action.payload
+    const { ref, target, isCollection } = action.payload
 
     try {
-        const snapshot = yield call([ref, ref.get])
+        const doc = yield call([ref, ref.get])
 
-        yield put(getDocsFromDbSuccess(snapshot.docs, target))
+        if (isCollection) {
+            yield put(getDocsFromDbSuccess(doc.docs, target))
+        } else {
+            const data = doc.data()
+
+            yield put(getDocsFromDbSuccess(data, target))
+        }
     } catch (error) {
         console.error(error)
         yield put(getDocsFromDbFailed(error, target))
@@ -26,38 +32,48 @@ function* updateDb(action) {
         batch = db.batch()
 
     try {
-        const snapshot = yield call([ref, ref.get]),
-            docIds = snapshot.docs.map(doc => doc.id)
+        const doc = yield call([ref, ref.get])
 
-        if (data.length > docIds.length)
-            data.forEach(item => {
-                if (docIds.includes(item._id)) {
-                    const docRef = ref.doc(item._id)
-                    batch.set(docRef, item)
-                } else {
-                    const docRef = ref.doc()
-                    batch.set(docRef, item, { merge: true })
-                }
-            })
-        else {
-            const dataIds = data.map(item => item._id),
-                docsIdsToDelete = docIds.filter(id => !dataIds.includes(id))
+        if (!doc.docs) {
+            if (doc.exists) {
+                ref.update(data)
+            } else {
+                ref.set(data)
+            }
+        } else {
+            const docIds = doc.docs.map(doc => doc.id)
 
-            docsIdsToDelete.forEach(id => {
-                const docRef = ref.doc(id)
-                batch.delete(docRef)
-            })
-            data.forEach(item => {
-                if (docIds.includes(item._id)) {
-                    const docRef = ref.doc(item._id)
-                    batch.set(docRef, item)
-                }
-            })
+            if (data.length > docIds.length)
+                data.forEach(item => {
+                    if (docIds.includes(item._id)) {
+                        const docRef = ref.doc(item._id)
+                        batch.set(docRef, item)
+                    } else {
+                        const docRef = ref.doc()
+                        batch.set(docRef, item, { merge: true })
+                    }
+                })
+            else {
+                const dataIds = data.map(item => item._id),
+                    docsIdsToDelete = docIds.filter(id => !dataIds.includes(id))
+
+                docsIdsToDelete.forEach(id => {
+                    const docRef = ref.doc(id)
+                    batch.delete(docRef)
+                })
+
+                data.forEach(item => {
+                    if (docIds.includes(item._id)) {
+                        const docRef = ref.doc(item._id)
+                        batch.set(docRef, item)
+                    }
+                })
+            }
+
+            yield call([batch, batch.commit])
+
+            yield put(updateDbSuccess())
         }
-
-        yield call([batch, batch.commit])
-
-        yield put(updateDbSuccess())
     } catch (error) {
         console.error(error)
         yield put(updateDbFailed(error))

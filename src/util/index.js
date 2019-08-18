@@ -12,10 +12,14 @@ export const fromKebabCase = string => string.split('-').join(' ')
 export const getTitleFromRoute = routeName => {
     if (routeName === '/home' || routeName === '/404') return ''
 
+    if (routeName.includes('%')) {
+        return routeName.split('%')[0].split('/')[2]
+    }
+
     return routeName
         .toLowerCase()
         .replace('/', '')
-        .split(' ')
+        .split('-')
         .map(string => {
             if (string !== 'of')
                 return string.charAt(0).toUpperCase() + string.substring(1)
@@ -66,6 +70,10 @@ export const getDayMonthYearFromDate = date =>
         }, '')
         .toLowerCase()
 
-export const toKebabCase = string => string.split(' ').join('-')
+export const toKebabCase = string =>
+    string
+        .split(' ')
+        .join('-')
+        .toLowerCase()
 
 export { isEqual }

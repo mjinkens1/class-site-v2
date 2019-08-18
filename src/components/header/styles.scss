@@ -31,7 +31,7 @@
     position: relative;
 }
 
-.header--red::before {
+.header::before {
     content: '';
     position: absolute;
     left: 0;
@@ -51,6 +51,9 @@
     font-family: $display-font;
     font-size: 32px;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .login-menu__close-icon--wrapper {
@@ -102,7 +105,7 @@
     .header {
         position: relative;
         padding: $base-unit;
-        width: calc(100vw - #{2 * $base-unit});
+        min-width: calc(100vw - #{2 * $base-unit});
         background: linear-gradient(
             150deg,
             $bg-primary-dark 50%,

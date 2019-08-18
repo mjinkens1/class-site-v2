@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { CircularProgress, List } from '@material-ui/core'
+import { CircularProgress, List, Typography } from '@material-ui/core'
 import { Card } from '../common/card/Card'
 import { EditTools } from '../editTools/EditTools'
 import { CardListItem } from '../cardListItem/CardListItem'
@@ -15,10 +15,10 @@ import { db } from '../../config/firebase'
 import uniqueId from 'lodash/uniqueId'
 import { styles } from '../../config/styles'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import { toKebabCase } from '../../util'
 import './styles.scss'
+import { toKebabCase } from '../../util'
 
-export class HomeCard extends PureComponent {
+export class LinksCard extends PureComponent {
     state = {
         edit: false,
         dataList: [],
@@ -28,7 +28,11 @@ export class HomeCard extends PureComponent {
     _toggleEdit = () => this.setState({ edit: !this.state.edit })
 
     _addItem = () => {
-        const id = uniqueId(`home-card-${this.props.title}-card-list-item`)
+        const id = uniqueId(
+            `links-card-${toKebabCase(
+                this.props.history.location.pathname
+            )}-card-list-item`
+        )
 
         this.setState({
             showEditor: true,
@@ -109,12 +113,12 @@ export class HomeCard extends PureComponent {
     _onInputTextChange = text => this.setState({ itemTitle: text })
 
     _saveChanges = () => {
-        const homeRef = db
+        const dbRef = db
             .collection('data')
-            .doc('home')
-            .collection(`home-card-${this.props.title}`)
+            .doc(toKebabCase(this.props.history.location.pathname))
+            .collection('links')
 
-        this.props.updateDb(homeRef, this.state.dataList)
+        this.props.updateDb(dbRef, this.state.dataList)
         this.setState({ edit: !this.state.edit })
     }
 
@@ -132,13 +136,17 @@ export class HomeCard extends PureComponent {
 
     componentDidMount() {
         const { data } = this.props
-        if (!data) {
-            const homeRef = db
-                .collection('data')
-                .doc('home')
-                .collection(`home-card-${this.props.title}`)
 
-            this.props.getDocsFromDb(homeRef, `home-card-${this.props.title}`)
+        if (!data) {
+            const dbRef = db
+                .collection('data')
+                .doc(`${toKebabCase(this.props.history.location.pathname)}`)
+                .collection('links')
+
+            this.props.getDocsFromDb(
+                dbRef,
+                toKebabCase(this.props.history.location.pathname)
+            )
 
             this.setState({
                 editorState: EditorState.createEmpty(),
@@ -171,7 +179,7 @@ export class HomeCard extends PureComponent {
     }
 
     render() {
-        const { icon, title, reverse, user, data, itemAvatar } = this.props,
+        const { gettingDocsFromDb, history, user } = this.props,
             {
                 dataList,
                 edit,
@@ -183,21 +191,29 @@ export class HomeCard extends PureComponent {
 
         return (
             <Card
-                id={title}
-                className={`card--${toKebabCase(title)} ${
-                    reverse ? 'card-reverse' : ''
-                }`}
+                id={history.location.pathname}
+                className="course-section__card--links"
             >
                 <div className="card-body">
-                    {user && (
-                        <EditTools
-                            addItem={this._addItem}
-                            toggleEdit={this._toggleEdit}
-                            saveChanges={this._saveChanges}
-                            cancelChanges={this._cancelChanges}
-                            edit={edit}
-                        />
-                    )}
+                    <div className="course-section__links-card-title">
+                        <Typography
+                            variant="display1"
+                            align="left"
+                            gutterBottom
+                            style={{ fontSize: 24, margin: 12 }}
+                        >
+                            Links and Resources
+                        </Typography>
+                        {user && (
+                            <EditTools
+                                addItem={this._addItem}
+                                toggleEdit={this._toggleEdit}
+                                saveChanges={this._saveChanges}
+                                cancelChanges={this._cancelChanges}
+                                edit={edit}
+                            />
+                        )}
+                    </div>
 
                     {user && showEditor && (
                         <FloatingEditor
@@ -212,7 +228,7 @@ export class HomeCard extends PureComponent {
                         />
                     )}
 
-                    {data ? (
+                    {!gettingDocsFromDb ? (
                         <div className="card-data">
                             <List>
                                 {dataList.map(listItem => {
@@ -228,7 +244,6 @@ export class HomeCard extends PureComponent {
                                             deleteItem={this._deleteItem}
                                             editItem={this._editItem}
                                             edit={edit}
-                                            avatar={itemAvatar}
                                         />
                                     )
                                 })}
@@ -242,10 +257,6 @@ export class HomeCard extends PureComponent {
                             />
                         </div>
                     )}
-                </div>
-                <div className="card-info">
-                    {icon}
-                    <p className="card-title">{title}</p>
                 </div>
             </Card>
         )

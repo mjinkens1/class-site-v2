@@ -1,6 +1,8 @@
 import React from 'react'
 import './styles.scss'
 
-export const Card = ({ className, children }) => (
-    <div className={`card-base ${className}`}>{children}</div>
+export const Card = ({ className, children, style }) => (
+    <div className={`card-base ${className}`} style={style}>
+        {children}
+    </div>
 )

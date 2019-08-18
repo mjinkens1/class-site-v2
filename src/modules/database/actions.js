@@ -7,11 +7,12 @@ export const actions = {
     UPDATE_DB_FAILED: 'UPDATE_DB_FAILED',
 }
 
-export const getDocsFromDb = (ref, target) => ({
+export const getDocsFromDb = (ref, target, isCollection = true) => ({
     type: actions.GET_DOCS_FROM_DB,
     payload: {
         ref,
         target,
+        isCollection,
     },
 })
 

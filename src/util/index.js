@@ -12,8 +12,18 @@ export const fromKebabCase = string => string.split('-').join(' ')
 export const getTitleFromRoute = routeName => {
     if (routeName === '/home' || routeName === '/404') return ''
 
-    if (routeName.includes('%')) {
-        return routeName.split('%')[0].split('/')[2]
+    if (routeName.includes('/file')) {
+        const addressParams = new URLSearchParams(window.location.href)
+
+        let paramsObj = {}
+
+        for (let param of addressParams.entries()) {
+            if (param[0].includes('?')) {
+                paramsObj[param[0].split('?')[1]] = param[1]
+            }
+        }
+
+        return paramsObj.name
     }
 
     return routeName

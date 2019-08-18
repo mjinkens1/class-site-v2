@@ -2,30 +2,29 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { toJS } from '../toJS'
 
-const FileFullscreenContainer = ({ match }) => {
+const FileFullscreenContainer = () => {
     const [params, setParams] = useState({})
 
     useEffect(() => {
-        const encodedParams = match.params
+        const addressParams = new URLSearchParams(window.location.href)
 
-        const decodedParams = Object.entries(encodedParams).reduce(
-            (acc, [key, val]) => {
-                const decodedVal = decodeURIComponent(val)
+        let paramsObj = {}
 
-                return {
-                    ...acc,
-                    [key]: decodedVal,
-                }
-            },
-            {}
-        )
+        for (let param of addressParams.entries()) {
+            if (param[0].includes('?')) {
+                paramsObj[param[0].split('?')[1]] = param[1]
+            } else {
+                paramsObj[param[0]] = param[1]
+            }
+        }
 
-        setParams(decodedParams)
+        setParams(paramsObj)
     }, [])
 
     const { name, type, url } = params
 
     const isMSDoc = type && type.includes('officedocument')
+
     const formattedUrl =
         url && url.split(`/${name}`)[0] + '%2F' + name + url.split(name)[1]
 
@@ -67,7 +66,9 @@ const FileFullscreenContainer = ({ match }) => {
     )
 }
 
-const mapStateToProps = ({ authentication, storage }) => ({})
+const mapStateToProps = ({ authentication, storage, fileFullscreen }) => ({
+    fullscreenFile: fileFullscreen.get('fullscreenFile'),
+})
 
 const mapDispatchToProps = {}
 

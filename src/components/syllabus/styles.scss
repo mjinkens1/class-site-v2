@@ -5,5 +5,8 @@
     width: 100%;
     height: calc(100vh - #{15 * $base-unit});
     background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
-    overflow-y: hidden;
+}
+
+.syllabus__object {
+    -webkit-overflow-scrolling: touch;
 }

@@ -49,10 +49,7 @@ export default class Appo extends PureComponent {
                                     component={CourseSection}
                                 />
                             ))}
-                            <Route
-                                path="/file/:name/:type/:url"
-                                component={FileFullscreen}
-                            />
+                            <Route path="/file" component={FileFullscreen} />
                             <Route exact path="/404" component={PageNotFound} />
                             <Route exact path="/">
                                 <Redirect to="/home" />

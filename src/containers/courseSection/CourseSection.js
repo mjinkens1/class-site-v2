@@ -9,6 +9,7 @@ import {
     clearFilePreviews,
     deleteFiles,
 } from '../../modules/storage/actions'
+import { setFullscreenFile } from '../../modules/fileFullscreen/actions'
 import { getDocsFromDb, updateDb } from '../../modules/database/actions'
 import { isEqual, toKebabCase } from '../../util'
 import { store } from '../../config/redux'
@@ -128,6 +129,7 @@ class CourseSectionContainer extends PureComponent {
             getDocsFromDb,
             gettingFiles,
             history,
+            setFullscreenFile,
             updateDb,
             updatingDb,
             updateDbFailed,
@@ -182,6 +184,7 @@ class CourseSectionContainer extends PureComponent {
                 selectForDelete={this._selectForDelete}
                 selectedForPreview={selectedForPreview}
                 selectForPreview={this._selectForPreview}
+                setFullscreenFile={setFullscreenFile}
                 toggleEditFiles={this._toggleEditFiles}
                 toggleEditLinks={this._toggleEditLinks}
                 updateDb={updateDb}
@@ -210,6 +213,7 @@ const mapDispatchToProps = {
     clearFilePreviews,
     deleteFiles,
     getDocsFromDb,
+    setFullscreenFile,
     updateDb,
 }
 

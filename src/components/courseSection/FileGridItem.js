@@ -183,12 +183,17 @@ export const FileGridItem = ({
     selectForDelete,
     selectedForDelete,
     selectForPreview,
+    setFullscreenFile,
 }) => {
     const { id, name, type, url } = file
+    const onClick = () => {
+        setFullscreenFile(name, type, url)
+    }
 
-    const href = `file/${encodeURIComponent(name)}/${encodeURIComponent(
-        type
-    )}/${encodeURIComponent(url)}`
+    // split/join type to circumvent React Router auto
+    const href = `file?name=${encodeURIComponent(name)}&type=${type
+        .split('/')
+        .join('-')}&url=${encodeURIComponent(url)}`
 
     return (
         <Grid item key={id || name}>
@@ -227,6 +232,7 @@ export const FileGridItem = ({
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={onClick}
                     style={{
                         position: 'relative',
                         pointerEvents: file.deleting ? 'none' : 'auto',

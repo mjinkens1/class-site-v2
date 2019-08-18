@@ -5,7 +5,7 @@ const intialState = Map({
     gettingRSSVideo: false,
     rssVideo: null,
     gettingRSSWOD: false,
-    rssWOD: null
+    rssWOD: null,
 })
 
 export default (state = intialState, action) => {
@@ -23,11 +23,11 @@ export default (state = intialState, action) => {
             })
         }
 
-        case action.GET_RSS_VIDEO_FAILED: {
+        case actions.GET_RSS_VIDEO_FAILED: {
             return state.set('gettingRSSVideo', false)
         }
 
-        case action.GET_RSS_WOD: {
+        case actions.GET_RSS_WOD: {
             return state.set('gettingRSSWOD', true)
         }
 
@@ -38,7 +38,7 @@ export default (state = intialState, action) => {
             })
         }
 
-        case action.GET_RSS_WDO_FAILED: {
+        case actions.GET_RSS_WOD_FAILED: {
             return state.set('gettingRSSWOD', false)
         }
 

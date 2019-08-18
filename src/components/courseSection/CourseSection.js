@@ -63,6 +63,7 @@ class CourseSectionBase extends PureComponent {
             selectedForDelete,
             selectForPreview,
             selectedForPreview,
+            setFullscreenFile,
             toggleEditFiles,
             updateDb,
             user,
@@ -111,6 +112,7 @@ class CourseSectionBase extends PureComponent {
                         selectForDelete={selectForDelete}
                         selectedForDelete={selectedForDelete}
                         selectForPreview={selectForPreview}
+                        setFullscreenFile={setFullscreenFile}
                     />
                 </Card>
                 <LinksCard

@@ -10,6 +10,7 @@ export const FileGrid = ({
     selectForPreview,
     selectForDelete,
     selectedForDelete,
+    setFullscreenFile,
 }) => {
     return gettingFiles ? (
         <div className="course-section__loader">
@@ -39,6 +40,7 @@ export const FileGrid = ({
                     selectForPreview={selectForPreview}
                     selectForDelete={selectForDelete}
                     selectedForDelete={selectedForDelete}
+                    setFullscreenFile={setFullscreenFile}
                 />
             ))}
         </Grid>

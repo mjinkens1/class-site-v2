@@ -33,7 +33,7 @@ export const CalendarTile = ({
 
     return (
         <div className="tile">
-            {user && innerWidth > 568 && (
+            {user && (
                 <div className="calendar__tile__edit">
                     <div>
                         <Tooltip title="Edit">
@@ -47,8 +47,7 @@ export const CalendarTile = ({
                     </div>
                 </div>
             )}
-            {innerWidth > 568 &&
-                tileItems &&
+            {tileItems &&
                 tileItems.map(({ text }) => (
                     <div key={text} className="tile-icons">
                         <CalendarChip title={text} />

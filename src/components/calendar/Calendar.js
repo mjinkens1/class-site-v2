@@ -55,7 +55,7 @@ export class Calendar extends PureComponent {
     }
 
     _tileContent = ({ date }) => {
-        const { calendarData, innerWidth, updateDb, user } = this.props
+        const { calendarData, updateDb, user } = this.props
         const dateComponents = date.toString().split(' ')
         const dateCollection = toKebabCase(
             `${dateComponents[1]} ${dateComponents[3]}`
@@ -66,7 +66,6 @@ export class Calendar extends PureComponent {
                 calendarData={calendarData}
                 date={date}
                 dateCollection={dateCollection}
-                innerWidth={innerWidth}
                 updateDb={updateDb}
                 user={user}
             />
@@ -80,7 +79,7 @@ export class Calendar extends PureComponent {
     }
 
     render() {
-        const { calendarData, innerWidth, user } = this.props
+        const { calendarData, user } = this.props
         const { calendarValue, tileItems, showExpanded } = this.state
 
         return (
@@ -95,13 +94,13 @@ export class Calendar extends PureComponent {
                 >
                     <CalendarTileExpanded
                         tileItems={tileItems}
-                        showExpanded={showExpanded && innerWidth <= 568}
+                        showExpanded={showExpanded}
                         setShowExpanded={this._showExpanded}
                     />
                 </div>
                 <CalendarComponent
                     user={user}
-                    key={[calendarData, innerWidth]}
+                    key={calendarData}
                     className="calendar"
                     minDetail="month"
                     navigationLabel={this._navigationLabel}

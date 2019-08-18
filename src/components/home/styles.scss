@@ -34,7 +34,7 @@
     background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
     background-image: url('../../assets/images/main-bg.jpg');
     background-position-y: 50px;
-    // background-attachment: fixed;
+    background-position-x: 50%;
     background-size: cover;
     animation: fadein 2s;
 }
@@ -199,7 +199,7 @@
     margin-top: 0;
 }
 
-@media screen and (max-width: 1535px) {
+@media screen and (max-width: 1200px) {
     .lower-container {
         display: grid;
         grid-template-areas:

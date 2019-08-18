@@ -15,6 +15,11 @@
     box-shadow: $shadow-primary;
 }
 
+.react-calendar__navigation {
+    height: auto;
+    min-height: 44px;
+}
+
 .tile {
     position: relative;
     display: flex;
@@ -230,7 +235,11 @@
     grid-row-gap: 5px;
 }
 
-@media screen and (max-width: 1535px) {
+.tile-expanded {
+    display: none;
+}
+
+@media screen and (max-width: 1200px) {
     .tile {
         min-height: 30 * $base-unit;
     }
@@ -251,5 +260,14 @@
     .tile {
         min-height: auto;
         max-height: auto;
+    }
+
+    .tile-icons,
+    .calendar__tile__edit {
+        display: none;
+    }
+
+    .tile-expanded {
+        display: block;
     }
 }

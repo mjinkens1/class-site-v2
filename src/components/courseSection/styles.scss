@@ -1,12 +1,17 @@
 @import '../../config/styles/index.scss';
 
 .course-section__container {
-    display: flex;
+    display: grid;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    grid-template-areas:
+        'file-grid links'
+        'file-grid file-preview';
+    grid-template-columns: 1fr 0.8fr;
+    grid-template-rows: 40% 60%;
     max-width: 100%;
-    min-height: calc(100vh - #{$header-height + 6 * $base-unit});
+    height: calc(100vh - #{$header-height + 6 * $base-unit});
     padding-top: 6 * $base-unit;
     padding-left: 6 * $base-unit;
     background: $bg-primary-light;
@@ -26,6 +31,9 @@
     grid-template-rows: 40% 60%;
 }
 
+@mixin course-section__card {
+}
+
 .course-section__card {
     position: relative;
     display: flex;
@@ -36,6 +44,24 @@
     margin-top: 0;
     margin-left: 0;
     height: calc(100% - #{6 * $base-unit});
+
+    &--file-grid {
+        @extend .course-section__card;
+        grid-area: file-grid;
+    }
+
+    &--links {
+        @extend .course-section__card;
+        grid-area: links;
+        height: calc(100% - 24px);
+    }
+
+    &--file-preview {
+        @extend .course-section__card;
+        grid-area: file-preview;
+        height: calc(100% - 24px);
+        overflow: hidden;
+    }
 }
 
 .course-section__card-title {
@@ -52,7 +78,7 @@
 }
 
 .course-section__dropzone {
-    height: 175px;
+    height: 300px;
     background: $bg-emphasis;
     outline: none;
 }
@@ -82,7 +108,8 @@
     align-items: center;
     height: calc(100% - (#{2 * $base_unit} + 4px));
     margin: $base_unit;
-    border: 2px dashed $text-primary-dark;
+    border: 2px dashed $text-secondary-dark;
+    border-radius: $base_unit;
 }
 
 .course-section__file-grid-item-title {
@@ -94,10 +121,13 @@
 .course-section__file-preview {
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    width: calc(100% - #{8 * $base_unit});
+    height: 90%;
+    margin: 4 * $base_unit;
+    padding-top: 8 * $base_unit;
 }
 
 .course-section__file-preview--default {
@@ -109,6 +139,7 @@
 
 .course-section__file-preview__fullscreen-button {
     position: absolute;
+    z-index: 10;
     top: 0;
     right: 0;
     margin: $base-unit;
@@ -131,4 +162,48 @@
     position: absolute;
     bottom: 0;
     text-align: center;
+}
+
+.course-section__file-preview-fullscreen {
+    min-width: 50vw;
+    height: 90vh;
+}
+
+.course-section__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.course-section__links-card-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 1000px) {
+    .course-section__container {
+        display: grid;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        grid-template-areas:
+            'file-grid'
+            'file-preview'
+            'links';
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(350px, 1fr);
+        height: auto;
+    }
+
+    .course-section__card--links {
+        height: 350px;
+    }
+
+    .course-section__card--file-preview {
+        height: auto;
+        height: 500px;
+        overflow: hidden;
+    }
 }

@@ -42,8 +42,6 @@ export default (state = intialState, action) => {
         case actions.ADD_FILES_SUCCESS: {
             const { files, bucket } = payload
 
-            console.log('ADD FILES UPDATE', files)
-
             return state.mergeIn(['files', bucket], fromJS(files))
         }
 
@@ -52,6 +50,32 @@ export default (state = intialState, action) => {
                 addingFile: false,
                 addFileError: payload,
             })
+        }
+
+        case actions.DELETE_FILES: {
+            const { files, bucket } = payload
+
+            const currentFiles = state.getIn(['files', bucket]).toJS()
+
+            const updated = Object.entries(currentFiles).reduce(
+                (acc, [key, val]) => {
+                    if (files.includes(key)) {
+                        return { ...acc, [key]: { ...val, deleting: true } }
+                    }
+                    return { ...acc, [key]: val }
+                },
+                {}
+            )
+
+            return state.mergeIn(['files', bucket], fromJS(updated))
+        }
+
+        case actions.DELETE_FILES_SUCCESS: {
+            const { files, bucket } = payload
+
+            const updated = state.getIn(['files', bucket]).deleteAll(files)
+
+            return state.setIn(['files', bucket], updated)
         }
 
         case actions.GET_FILES: {
@@ -63,6 +87,7 @@ export default (state = intialState, action) => {
 
             return state.merge({
                 addingFile: true,
+                gettingFiles: false,
                 files: Map({
                     [bucket]: fromJS(files),
                 }),

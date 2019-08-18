@@ -1,38 +1,43 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
+import { CircularProgress, Grid } from '@material-ui/core'
 import { FileGridItem } from './FileGridItem'
-import { styles } from '../../config/styles'
 
 export const FileGrid = ({
     edit,
     filesArray,
     filePreviews,
+    gettingFiles,
     selectForPreview,
     selectForDelete,
     selectedForDelete,
-}) => (
-    <Grid
-        // justify="center"
-        container
-        spacing={32}
-        style={{
-            alignSelf: 'center',
-            marginTop: 16,
-            padding: 20,
-        }}
-    >
-        {filesArray.concat(filePreviews).map(({ name, preview }) => {
-            return (
+}) => {
+    return gettingFiles ? (
+        <div className="course-section__loader">
+            <CircularProgress size={30} />
+        </div>
+    ) : (
+        <Grid
+            justify="center"
+            container
+            spacing={32}
+            style={{
+                alignSelf: 'center',
+                width: 'auto',
+                height: 'auto',
+                margin: 0,
+                marginTop: 16,
+            }}
+        >
+            {filesArray.concat(filePreviews).map(file => (
                 <FileGridItem
-                    key={name}
+                    key={file.id || file.name}
                     edit={edit}
-                    name={name}
-                    preview={preview}
+                    file={file}
                     selectForPreview={selectForPreview}
                     selectForDelete={selectForDelete}
                     selectedForDelete={selectedForDelete}
                 />
-            )
-        })}
-    </Grid>
-)
+            ))}
+        </Grid>
+    )
+}

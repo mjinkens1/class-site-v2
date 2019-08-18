@@ -28,10 +28,15 @@
 
 .landing {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    padding-left: 3 * $base-unit;
+    min-height: 80vh;
+    padding-left: 8 * $base-unit;
     background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
+    background-image: url('../../assets/images/main-bg.jpg');
+    background-position-y: 50px;
+    // background-attachment: fixed;
+    background-size: cover;
+    animation: fadein 2s;
 }
 
 .title {
@@ -56,35 +61,6 @@
     font-size: 40px;
 }
 
-.main-img-wrapper {
-    width: 65vw;
-    height: 70vh;
-    min-height: 300px;
-    clip-path: polygon(20% 0, 100% 0%, 100% 100%, 0% 100%);
-    background: $bg-primary-dark;
-}
-
-.main-img-bg-color {
-    width: calc(65vw - #{$base-unit});
-    height: 70vh;
-    margin-left: 4px;
-    min-height: 300px;
-    clip-path: polygon(20% 0, 100% 0%, 100% 100%, 0% 100%);
-    background: $bg-secondary-dark;
-}
-
-.main-img {
-    width: calc(65vw - #{$base-unit});
-    height: 70vh;
-    min-height: 300px;
-    background-image: url('../../assets/images/main-bg.jpg');
-    background-attachment: fixed;
-    background-position: 10vw -2vh;
-    background-size: cover;
-    clip-path: polygon(20% 0, 100% 0%, 100% 100%, 0% 100%);
-    animation: fadein 2s;
-}
-
 .home-content {
     display: flex;
     flex-direction: column;
@@ -99,8 +75,18 @@
 }
 
 .lower-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-areas:
+        'calendar announcements'
+        'calendar parents'
+        'video other-stuff'
+        'video wod';
+
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 315px);
+    grid-column-gap: 6 * $base-unit;
+    grid-row-gap: 6 * $base-unit;
+    padding: 6 * $base-unit;
 }
 
 .column {
@@ -117,13 +103,31 @@
     flex-direction: row;
     flex-grow: 1;
     justify-content: space-between;
-    height: 73 * $base-unit;
-    min-height: 73 * $base-unit;
+    height: 100%;
+    margin: 0;
     overflow: visible;
-}
 
-.card:nth-child(n + 2) {
-    margin-top: 0;
+    &--announcements {
+        @extend .card;
+        grid-area: announcements;
+    }
+
+    &--parents {
+        @extend .card;
+        grid-area: parents;
+        align-self: end;
+    }
+
+    &--other-stuff {
+        @extend .card;
+        grid-area: other-stuff;
+    }
+
+    &--wod {
+        @extend .card;
+        grid-area: wod;
+        align-self: end;
+    }
 }
 
 .card-reverse {
@@ -131,6 +135,7 @@
 }
 
 .card-data {
+    height: 100%;
     overflow-y: auto;
 }
 
@@ -148,7 +153,6 @@
     justify-content: center;
     align-items: center;
     min-width: 40 * $base-unit;
-    max-width: 40 * $base-unit;
     padding: 4 * $base-unit;
     background: $bg-emphasis;
     border-radius: 0 $base-unit $base-unit 0;
@@ -195,6 +199,21 @@
     margin-top: 0;
 }
 
+@media screen and (max-width: 1535px) {
+    .lower-container {
+        display: grid;
+        grid-template-areas:
+            'calendar'
+            'announcements'
+            'parents'
+            'other-stuff'
+            'wod'
+            'video';
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr repeat(4, 350px) auto;
+    }
+}
+
 @media only screen and (max-width: 768px) {
     .landing {
         justify-content: center;
@@ -206,8 +225,8 @@
         background-repeat: no-repeat;
     }
 
-    .main-img-wrapper {
-        display: none;
+    .lower-container {
+        padding: 3 * $base-unit;
     }
 
     .card {
@@ -217,9 +236,7 @@
     .card-info {
         flex-direction: row;
         justify-content: flex-start;
-        width: calc(100vw - #{20 * $base-unit});
         min-height: 0;
-        max-width: calc(100vw - #{20 * $base-unit});
         padding-left: 6 * $base-unit;
     }
 
@@ -229,8 +246,6 @@
 }
 
 @media only screen and (max-width: 414px) {
-    $card-width: calc(100vw - #{2 * $base-unit});
-
     .landing {
         justify-content: center;
         min-height: 30vh;
@@ -240,10 +255,6 @@
         background-position: center center;
         background-size: 100% auto;
         background-repeat: no-repeat;
-    }
-
-    .main-img-wrapper {
-        display: none;
     }
 
     .header-1 {
@@ -260,15 +271,14 @@
 
     .card {
         flex-direction: column-reverse;
-        width: $card-width;
         margin: 2 * $base-unit $base-unit;
     }
 
     .card-info {
         flex-direction: row;
         flex-grow: 1;
-        width: $card-width;
         max-width: calc(100vw - #{12 * $base-unit});
+        width: 100%;
     }
 
     .card-title {

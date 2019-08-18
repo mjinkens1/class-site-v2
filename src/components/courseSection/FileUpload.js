@@ -37,8 +37,10 @@ const SimpleDialog = ({
 
     return (
         <Dialog
-            style={{ minWidth: '60%' }}
+            fullWidth
+            maxWidth="lg"
             onClose={onClose}
+            style={{ minHeight: '80vh', maxHeight: '80vh' }}
             aria-labelledby="simple-dialog-title"
             {...other}
         >
@@ -49,6 +51,7 @@ const SimpleDialog = ({
                     style={{
                         margin: styles.baseUnit,
                         backgroundColor: styles.bgPrimaryDark,
+                        width: 100,
                     }}
                 >
                     Done
@@ -56,9 +59,11 @@ const SimpleDialog = ({
             </div>
 
             <Dropzone
+                maxSize={10000000}
                 onDragEnter={onDragEnter}
                 onDragLeave={onDragLeave}
                 onDrop={onFileDrop}
+                accept=".png, .jpg, .jpeg, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .pdf"
             >
                 {({ getRootProps, getInputProps }) => (
                     <div className={dropzoneClass} {...getRootProps()}>

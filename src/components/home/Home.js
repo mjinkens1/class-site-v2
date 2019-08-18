@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { DownButton } from '../common/downButton/DownButton'
-import { Calendar } from '../calendar/Calendar'
+import Calendar from '../../containers/calendar/CalendarContainer'
 import { HomeCard } from './HomeCard'
 import { WOD } from './WOD'
 import { RSSVideo } from '../rssVideo/RSSVideo'
@@ -19,15 +19,7 @@ export class Home extends PureComponent {
         innerHeight: null,
     }
 
-    _onScroll = () => {
-        const scrollTop =
-                window.scrollY ||
-                window.scrollTop ||
-                document.getElementsByTagName('html')[0].scrollTop,
-            image = document.querySelector('.main-img')
-
-        image.style.backgroundPosition = `10vw calc(-2vh - ${scrollTop * 0.7}px)`
-    }
+    landingRef = React.createRef()
 
     _onResize = () => {
         this.setState({
@@ -37,22 +29,30 @@ export class Home extends PureComponent {
     }
 
     _onDownButtonClick = () => {
-        const { innerWidth, innerHeight } = this.state
+        const { height } = this.landingRef.current.getBoundingClientRect()
 
-        window.scrollTo({
+        document.querySelector('body').scrollTo({
             left: 0,
-            top: innerHeight * (innerWidth > 768 ? 0.7 : 0.3),
+            top: height - 56,
             behavior: 'smooth',
         })
     }
 
-    _open = () => this.setState({ open: true })
+    _showSnackbar = () => {
+        this.setState({ open: true })
 
-    _handleClose = () => this.setState({ open: false })
+        setTimeout(() => {
+            this._hideSnackbar()
+        }, 3000)
+    }
+
+    _hideSnackbar = () => this.setState({ open: false })
 
     componentDidMount() {
-        this.setState({ innerWidth: window.innerWidth, innerHeight: window.innerHeight })
-        window.addEventListener('scroll', this._onScroll)
+        this.setState({
+            innerWidth: window.innerWidth,
+            innerHeight: window.innerHeight,
+        })
         window.addEventListener('resize', this._onResize)
         this.props.getRSSWOD()
     }
@@ -60,11 +60,12 @@ export class Home extends PureComponent {
     componentDidUpdate(prevProps) {
         const { updatingDb, updateDbFailed } = this.props
 
-        if (prevProps.updatingDb && !updatingDb && !updateDbFailed) this._open()
+        if (prevProps.updatingDb && !updatingDb && !updateDbFailed) {
+            this._showSnackbar()
+        }
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this._onScroll)
         window.removeEventListener('resize', this._onResize)
     }
 
@@ -91,7 +92,6 @@ export class Home extends PureComponent {
                     }}
                     open={open}
                     autoHideDuration={6000}
-                    onClose={this._handleClose}
                     ContentProps={{
                         'aria-describedby': 'message-id',
                     }}
@@ -107,17 +107,10 @@ export class Home extends PureComponent {
                         </IconButton>,
                     ]}
                 />
-                <div className="landing">
-                    <div className="title-wrapper">
-                        <div className="title">
-                            <h1 className="header-1">Ms. Jinkens</h1>
-                            <h1 className="header-2">AP World History</h1>
-                        </div>
-                    </div>
-                    <div className="main-img-wrapper">
-                        <div className="main-img-bg-color">
-                            <div className="main-img" />
-                        </div>
+                <div ref={this.landingRef} className="landing">
+                    <div className="title">
+                        <h1 className="header-1">Ms. Jinkens</h1>
+                        <h1 className="header-2">AP World History</h1>
                     </div>
                 </div>
                 <div className="home-content">
@@ -125,45 +118,47 @@ export class Home extends PureComponent {
                         <DownButton onClick={this._onDownButtonClick} />
                     </div>
                     <div className="lower-container">
-                        <div className="column">
-                            <Calendar innerWidth={innerWidth} user={user} />
-                            <RSSVideo getRSSVideo={getRSSVideo} rssVideo={rssVideo} />
+                        <div>
+                            <Calendar innerWidth={innerWidth} />
                         </div>
-                        <div className="column">
-                            <HomeCard
-                                user={user}
-                                title="Announcements"
-                                icon={<AnnouncementIcon className="icon" />}
-                                data={announcementsData}
-                                getDocsFromDb={getDocsFromDb}
-                                updateDb={updateDb}
-                                itemAvatar={<AnnouncementIcon />}
-                            />
-                            <HomeCard
-                                user={user}
-                                title="Parents"
-                                icon={<PeopleIcon className="icon" />}
-                                data={parentsData}
-                                getDocsFromDb={getDocsFromDb}
-                                updateDb={updateDb}
-                                itemAvatar={<PeopleIcon />}
-                            />
-                            <HomeCard
-                                user={user}
-                                title="Other Stuff"
-                                icon={<ListIcon className="icon" />}
-                                data={otherData}
-                                getDocsFromDb={getDocsFromDb}
-                                updateDb={updateDb}
-                                itemAvatar={<ListIcon />}
-                            />
-                            <WOD
-                                title="Word of the Day"
-                                icon={<BookIcon className="icon" />}
-                                reverse
-                                data={rssWOD}
-                            />
-                        </div>
+                        <RSSVideo
+                            getRSSVideo={getRSSVideo}
+                            rssVideo={rssVideo}
+                        />
+
+                        <HomeCard
+                            user={user}
+                            title="Announcements"
+                            icon={<AnnouncementIcon className="icon" />}
+                            data={announcementsData}
+                            getDocsFromDb={getDocsFromDb}
+                            updateDb={updateDb}
+                            itemAvatar={<AnnouncementIcon />}
+                        />
+                        <HomeCard
+                            user={user}
+                            title="Parents"
+                            icon={<PeopleIcon className="icon" />}
+                            data={parentsData}
+                            getDocsFromDb={getDocsFromDb}
+                            updateDb={updateDb}
+                            itemAvatar={<PeopleIcon />}
+                        />
+                        <HomeCard
+                            user={user}
+                            title="Other Stuff"
+                            icon={<ListIcon className="icon" />}
+                            data={otherData}
+                            getDocsFromDb={getDocsFromDb}
+                            updateDb={updateDb}
+                            itemAvatar={<ListIcon />}
+                        />
+                        <WOD
+                            title="Word of the Day"
+                            icon={<BookIcon className="icon" />}
+                            reverse
+                            data={rssWOD}
+                        />
                     </div>
                 </div>
             </div>

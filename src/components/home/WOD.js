@@ -6,40 +6,59 @@ import './styles.scss'
 
 export const WOD = ({ icon, title, reverse, data }) => {
     return (
-        <Card id={title} className={`card ${reverse ? 'card-reverse' : ''}`}>
+        <Card
+            id={title}
+            className={`card--wod ${reverse ? 'card-reverse' : ''}`}
+        >
             <div className="card-body">
                 {data ? (
                     <div className="wod__data">
-                        <div className='wod__data--wrapper'>
-                            <Typography variant='display1' align='left' gutterBottom>
+                        <div className="wod__data--wrapper">
+                            <Typography
+                                variant="display1"
+                                align="left"
+                                gutterBottom
+                            >
                                 {data.title}
                             </Typography>
-                            <Typography variant='h6' align='left' style={{ marginLeft: 16, fontWeight: '300' }}>
+                            <Typography
+                                variant="h6"
+                                align="left"
+                                style={{ marginLeft: 16, fontWeight: '300' }}
+                            >
                                 {data.description[0]}
                             </Typography>
-                            <div className='wod__data--align'>
-                                {
-                                    data.description.slice(1).map(item =>
-                                        <Typography variant='h6' align='left' gutterBottom style={{ marginLeft: 8 }} key={item}>
-                                            {item}
-                                        </Typography>)
-                                }
+                            <div className="wod__data--align">
+                                {data.description.slice(1).map(item => (
+                                    <Typography
+                                        variant="h6"
+                                        align="left"
+                                        gutterBottom
+                                        style={{ marginLeft: 8 }}
+                                        key={item}
+                                    >
+                                        {item}
+                                    </Typography>
+                                ))}
                             </div>
-                            <Link align='right' href={data.link} target="_blank" rel="noopener" style={{ marginTop: 16 }}>
+                            <Link
+                                align="right"
+                                href={data.link}
+                                target="_blank"
+                                rel="noopener"
+                                style={{ marginTop: 16 }}
+                            >
                                 <Typography style={{ color: '#0645AD' }}>
                                     Learn more
-                            </Typography>
+                                </Typography>
                             </Link>
                         </div>
                     </div>
                 ) : (
-                        <div className="home-card__progress">
-                            <CircularProgress
-                                size={30}
-                                style={{ color: 'red' }}
-                            />
-                        </div>
-                    )}
+                    <div className="home-card__progress">
+                        <CircularProgress size={30} style={{ color: 'red' }} />
+                    </div>
+                )}
             </div>
             <div className="card-info">
                 {icon}

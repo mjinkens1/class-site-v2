@@ -78,8 +78,8 @@
     display: grid;
     grid-template-areas:
         'calendar announcements'
-        'calendar parents'
-        'video other-stuff'
+        'clendar week-in-review'
+        'video parents'
         'video wod';
 
     grid-template-columns: repeat(2, 1fr);
@@ -118,9 +118,9 @@
         align-self: end;
     }
 
-    &--other-stuff {
+    &--week-in-review {
         @extend .card;
-        grid-area: other-stuff;
+        grid-area: week-in-review;
     }
 
     &--wod {
@@ -206,8 +206,8 @@
         grid-template-areas:
             'calendar'
             'announcements'
+            'week-in-review'
             'parents'
-            'other-stuff'
             'wod'
             'video';
         grid-template-columns: 1fr;

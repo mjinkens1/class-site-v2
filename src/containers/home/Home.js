@@ -14,7 +14,7 @@ const mapStateToProps = ({ authentication, database, rss }) => ({
     updateDbFailed: database.get('updateDbFailed'),
     announcementsData: database.get('docs-home-card-Announcements'),
     parentsData: database.get('docs-home-card-Parents'),
-    otherData: database.get('docs-home-card-Other Stuff'),
+    otherData: database.get('docs-home-card-Week in Review'),
 })
 
 const mapDispatchToProps = {

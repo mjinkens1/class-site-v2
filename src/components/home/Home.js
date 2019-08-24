@@ -137,21 +137,21 @@ export class Home extends PureComponent {
                         />
                         <HomeCard
                             user={user}
+                            title="Week in Review"
+                            icon={<ListIcon className="icon" />}
+                            data={otherData}
+                            getDocsFromDb={getDocsFromDb}
+                            updateDb={updateDb}
+                            itemAvatar={<ListIcon />}
+                        />
+                                                <HomeCard
+                            user={user}
                             title="Parents"
                             icon={<PeopleIcon className="icon" />}
                             data={parentsData}
                             getDocsFromDb={getDocsFromDb}
                             updateDb={updateDb}
                             itemAvatar={<PeopleIcon />}
-                        />
-                        <HomeCard
-                            user={user}
-                            title="Other Stuff"
-                            icon={<ListIcon className="icon" />}
-                            data={otherData}
-                            getDocsFromDb={getDocsFromDb}
-                            updateDb={updateDb}
-                            itemAvatar={<ListIcon />}
                         />
                         <WOD
                             title="Word of the Day"

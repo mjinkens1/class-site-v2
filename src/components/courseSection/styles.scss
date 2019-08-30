@@ -48,6 +48,7 @@
     &--file-grid {
         @extend .course-section__card;
         grid-area: file-grid;
+        overflow-y: auto;
     }
 
     &--links {

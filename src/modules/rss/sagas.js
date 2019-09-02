@@ -1,4 +1,5 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects'
+import { storage } from '../../config/firebase'
 import { api } from '../../config/api'
 import { rssVideoURL, rssWODURL } from '../../constants'
 import {
@@ -12,9 +13,14 @@ import { mapWOD } from '../../util'
 
 function* getRSSVideo() {
     try {
-        const response = yield call(api, rssVideoURL)
+        const storageRef = yield call(
+            [storage, storage.ref],
+            'videos/cnn10.mp4'
+        )
 
-        const rssVideo = yield response.json()
+        const rssVideo = yield call([storageRef, storageRef.getDownloadURL])
+
+        console.log('RES', rssVideo)
 
         yield put(getRSSVideoSuccess(rssVideo))
     } catch (error) {

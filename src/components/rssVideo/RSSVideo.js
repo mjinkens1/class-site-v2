@@ -3,10 +3,15 @@ import './styles.scss'
 
 export class RSSVideo extends PureComponent {
     componentDidMount() {
-        if (!this.props.rssVideo) this.props.getRSSVideo()
+        if (!this.props.rssVideo) {
+            this.props.getRSSVideo()
+        }
     }
+
     render() {
         const { rssVideo } = this.props
+
+        console.log(rssVideo)
 
         return (
             <div className="video-wrapper">

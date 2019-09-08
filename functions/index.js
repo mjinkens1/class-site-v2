@@ -6,4 +6,5 @@ admin.initializeApp({
     databaseURL: 'https://classsite-9148d.firebaseio.com',
 })
 
+exports.getRSSVideo = require('./src/getRSSVideo').getRSSVideo
 exports.getRSSWOD = require('./src/getRSSWOD').getRSSWOD

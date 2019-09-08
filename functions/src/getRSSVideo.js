@@ -7,10 +7,8 @@ const cors = require('cors')({ origin: true })
 const parseXML = require('xml2js').parseString
 const rssURL = 'http://rss.cnn.com/services/podcasting/cnn10/rss.xml'
 
-exports.getRSSVideo = functions.pubsub
-    .schedule('0 6 * * *')
-    .timeZone('America/Chicago')
-    .onRun(async context => {
+exports.getRSSVideo = functions.https.onRequest((request, response) => {
+    return cors(request, response, async () => {
         try {
             const link = await fetch(rssURL)
                 .then(res => res.text())
@@ -33,12 +31,11 @@ exports.getRSSVideo = functions.pubsub
                                     result.rss.channel[0].item[0].link[0]
 
                                 resolve(link)
+                                // return response.json(link)
                             })
                         })
                 )
-                .catch(error => {
-                    throw error
-                })
+                .catch(error => response.send(error))
 
             const filePath = `/tmp/cnn10`
 
@@ -59,9 +56,14 @@ exports.getRSSVideo = functions.pubsub
                     metadata: {
                         contentType: 'video/mp4',
                     },
+                    resumable: false,
                 })
+
+                response.send('Ok')
             })
         } catch (error) {
             console.error(error)
+            response.status(500).json(error)
         }
     })
+})

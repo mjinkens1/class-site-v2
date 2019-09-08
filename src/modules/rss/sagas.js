@@ -1,7 +1,7 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects'
 import { storage } from '../../config/firebase'
 import { api } from '../../config/api'
-import { rssVideoURL, rssWODURL } from '../../constants'
+import { rssWODURL } from '../../constants'
 import {
     actions,
     getRSSVideoSuccess,

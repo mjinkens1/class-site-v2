@@ -9,8 +9,6 @@ a {
     background: linear-gradient($bg-secondary-light, $bg-secondary-dark);
 }
 
-
-
 .drawer-top {
     display: flex;
     flex-direction: column;
@@ -36,4 +34,5 @@ a {
 
 .side-drawer-anchor {
     display: flex;
+    width: 100%;
 }

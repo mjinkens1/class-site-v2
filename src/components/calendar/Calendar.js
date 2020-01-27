@@ -31,6 +31,10 @@ const TileContent = ({ calendarData, date, selectedTile, updateDb, user }) => {
     )
 }
 
+/**
+ * @class Calendar Calendar compenent class
+ */
+
 export class Calendar extends PureComponent {
     state = {
         dateString: '',

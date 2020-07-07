@@ -18,7 +18,7 @@
         "firebase-functions": "^3.2.0",
         "lodash-uuid": "0.0.3",
         "node-fetch": "^2.3.0",
-        "npm": "^6.11.2",
+        "npm": "^6.14.6",
         "xml2js": "^0.4.19"
     },
     "devDependencies": {
